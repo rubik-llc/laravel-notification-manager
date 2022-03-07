@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Rubik\NotificationManager\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class NotificationManagerCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-notification-manager';
 
     public $description = 'My command';
 

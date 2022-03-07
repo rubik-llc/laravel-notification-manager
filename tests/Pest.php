@@ -1,5 +1,6 @@
 <?php
 
-use VendorName\Skeleton\Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Rubik\NotificationManager\Tests\TestCase;
 
-uses(TestCase::class)->in(__DIR__);
+uses(TestCase::class, RefreshDatabase::class)->in(__DIR__);

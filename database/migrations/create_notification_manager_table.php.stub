@@ -1,0 +1,60 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Rubik\NotificationManager\Enums\NotificationAlertType;
+use Rubik\NotificationManager\Enums\NotificationPreviewType;
+
+return new class extends Migration {
+    public function up()
+    {
+
+        Schema::create('notifications', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('type');
+            $table->uuidMorphs('notifiable');
+            $table->text('data');
+            $table->string('alert_type');
+            $table->string('preview_type');
+            $table->boolean('is_prioritized');
+            $table->boolean('is_muted');
+            $table->boolean('needs_authentication')->default(1);
+            $table->timestamp('read_at')->nullable();
+            $table->timestamp('seen_at')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('notification_managers', function (Blueprint $table) {
+            $table->id();
+            //if(config('notification-manager.user_uuid')){
+            //    $table->foreignUuid('user_id');
+            //}else{
+            //    $table->foreignId('user_id');
+            //}
+            //if(config('notification-manager.team_uuid')){
+            //    $table->foreignUuid('team_id');
+            //}else{
+            //    $table->foreignId('team_id');
+            //}
+            $table->morphs('notifiable');
+            $table->string('notification');
+            $table->string('channel')->default('*');
+            $table->timestamp('unsubscribed_at')->nullable();
+            $table->boolean('is_prioritized')->default(0);
+            $table->boolean('needs_authentication')->default(1);
+            $table->boolean('is_muted')->default(0);
+            $table->string('alert_type')->default(NotificationAlertType::NOTIFICATION_CENTER->value);
+            $table->string('preview_type')->default(NotificationPreviewType::WHEN_UNLOCKED->value);
+            $table->unique(['notification', 'notifiable_type', 'notifiable_id'], 'notification_notifiable_unique');
+            $table->timestamps();
+        });
+    }
+
+
+    public function down()
+    {
+        Schema::dropIfExists('notifications');
+        Schema::dropIfExists('notification_managers');
+    }
+};
