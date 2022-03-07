@@ -11,8 +11,7 @@ use Rubik\NotificationManager\Models\NotificationManager;
 
 trait SubscribableNotification
 {
-
-    public static abstract function subscribableNotificationType(): string;
+    abstract public static function subscribableNotificationType(): string;
 
     /**
      * Send a notification to all subscribers
@@ -25,7 +24,6 @@ trait SubscribableNotification
             new static(...func_get_args())
         );
     }
-
 
     /**
      * Get the notification's delivery channels.
@@ -78,7 +76,6 @@ trait SubscribableNotification
             ->subscribed()
             ->forNotification(self::subscribableNotificationType())
             ->get()
-            ->map(fn(NotificationManager $notificationSubscription) => $notificationSubscription->notifiable)->unique();
+            ->map(fn (NotificationManager $notificationSubscription) => $notificationSubscription->notifiable)->unique();
     }
-
 }

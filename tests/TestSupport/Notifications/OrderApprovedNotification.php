@@ -12,7 +12,8 @@ use Rubik\NotificationManager\Traits\SubscribableNotification;
 
 class OrderApprovedNotification extends Notification implements ShouldQueue, SubscribableNotificationContract
 {
-    use Queueable, SubscribableNotification;
+    use Queueable;
+    use SubscribableNotification;
 
     /**
      * @var Model
@@ -27,7 +28,6 @@ class OrderApprovedNotification extends Notification implements ShouldQueue, Sub
     {
         $this->afterCommit();
         $this->payload = $payload;
-
     }
 
     /**

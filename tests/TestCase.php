@@ -5,7 +5,6 @@ namespace Rubik\NotificationManager\Tests;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Rubik\NotificationManager\NotificationManagerServiceProvider;
-use Rubik\NotificationManager\Tests\TestSupport\Models\User;
 
 class TestCase extends Orchestra
 {
@@ -13,7 +12,7 @@ class TestCase extends Orchestra
     {
         parent::setUp();
         Factory::guessFactoryNamesUsing(
-            fn(string $modelName) => 'Rubik\\NotificationManager\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
+            fn (string $modelName) => 'Rubik\\NotificationManager\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
     }
 
@@ -24,14 +23,13 @@ class TestCase extends Orchestra
         ];
     }
 
-
     public function getEnvironmentSetUp($app)
     {
         config()->set('database.default', 'testing');
 
-        $notificationManager=include __DIR__ . '/../database/migrations/create_notification_manager_table.php.stub';
-        $user=include __DIR__ . '/../database/migrations/2021_12_15_101529_create_user_table.php';
-        $order=include __DIR__ . '/../database/migrations/2021_12_15_101544_create_order_table.php';
+        $notificationManager = include __DIR__ . '/../database/migrations/create_notification_manager_table.php.stub';
+        $user = include __DIR__ . '/../database/migrations/2021_12_15_101529_create_user_table.php';
+        $order = include __DIR__ . '/../database/migrations/2021_12_15_101544_create_order_table.php';
         $notificationManager->up();
         $user->up();
         $order->up();

@@ -21,5 +21,4 @@ class Order extends Model
         'approved',
         'user_id',
     ];
-
 }

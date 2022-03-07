@@ -9,7 +9,9 @@ use Rubik\NotificationManager\Traits\HasNotificationSubscription;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasFactory, HasNotificationSubscription;
+    use Notifiable;
+    use HasFactory;
+    use HasNotificationSubscription;
 
     protected $primaryKey = 'id';
 
@@ -42,6 +44,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-
 }

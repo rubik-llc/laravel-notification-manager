@@ -50,8 +50,3 @@ it('checks if a notification needs authentication', function () {
     $notification = Notification::factory()->state(['needs_authentication' => true])->create();
     $this->assertTrue($notification->needsAuthentication() === true);
 });
-
-
-
-
-

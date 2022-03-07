@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Notification;
+use function Pest\Laravel\actingAs;
 use Rubik\NotificationManager\Enums\NotificationAlertType;
 use Rubik\NotificationManager\Enums\NotificationPreviewType;
 use Rubik\NotificationManager\Facades\NotificationManager;
@@ -8,15 +9,13 @@ use Rubik\NotificationManager\Tests\TestSupport\Models\Order;
 use Rubik\NotificationManager\Tests\TestSupport\Models\User;
 use Rubik\NotificationManager\Tests\TestSupport\Notifications\OrderApprovedNotification;
 use Rubik\NotificationManager\Tests\TestSupport\Notifications\OrderRejectedNotification;
-use function Pest\Laravel\actingAs;
-
 
 beforeEach(function () {
     $this->loggedInUser = User::factory()->create();
     actingAs($this->loggedInUser);
     $this->user = User::factory()->create();
-    $this->approvedOrder = Order::factory()->state(fn() => ['approved' => true])->create();
-    $this->rejectedOrder = Order::factory()->state(fn() => ['approved' => false])->create();
+    $this->approvedOrder = Order::factory()->state(fn () => ['approved' => true])->create();
+    $this->rejectedOrder = Order::factory()->state(fn () => ['approved' => false])->create();
     Notification::fake();
 });
 
@@ -58,7 +57,6 @@ it('can subscribe to all notifications', function () {
 });
 
 it('can subscribe a user to all notifications', function () {
-
     NotificationManager::for($this->user)->unsubscribe(OrderApprovedNotification::class);
     NotificationManager::for($this->user)->unsubscribe(OrderRejectedNotification::class);
 

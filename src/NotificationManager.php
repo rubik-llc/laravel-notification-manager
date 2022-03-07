@@ -11,8 +11,6 @@ use Rubik\NotificationManager\Enums\NotificationPreviewType;
 
 class NotificationManager
 {
-
-
     public Model|Authenticatable|null $notifiable;
 
     public function __construct()
@@ -27,9 +25,9 @@ class NotificationManager
     public function for(Model|Authenticatable $notifiable): self
     {
         $this->notifiable = $notifiable;
+
         return $this;
     }
-
 
     /**
      * @param $subscribableNotificationClass
@@ -43,7 +41,7 @@ class NotificationManager
             'notifiable_id' => $this->notifiable->id,
         ], [
             'channel' => $channel,
-            'unsubscribed_at' => null
+            'unsubscribed_at' => null,
         ]);
     }
 
@@ -60,10 +58,9 @@ class NotificationManager
             'notifiable_id' => $this->notifiable->id,
         ], [
             'channel' => $channel,
-            'unsubscribed_at' => Carbon::now()
+            'unsubscribed_at' => Carbon::now(),
         ]);
     }
-
 
     /**
      *
@@ -108,7 +105,7 @@ class NotificationManager
         Models\NotificationManager::query()
             ->where([
                 'notifiable_type' => get_class($this->notifiable),
-                'notifiable_id' => $this->notifiable->id
+                'notifiable_id' => $this->notifiable->id,
             ])
             ->update(['unsubscribed_at' => null, 'channel' => $channel]);
     }
@@ -122,7 +119,7 @@ class NotificationManager
         Models\NotificationManager::query()
             ->where([
                 'notifiable_type' => get_class($this->notifiable),
-                'notifiable_id' => $this->notifiable->id
+                'notifiable_id' => $this->notifiable->id,
             ])
             ->update(['unsubscribed_at' => Carbon::now(), 'channel' => $channel]);
     }

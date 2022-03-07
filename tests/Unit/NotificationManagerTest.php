@@ -32,4 +32,3 @@ it('should update alert type', function () {
 it('should update preview type', function () {
     $this->assertTrue(true === true);
 });
-

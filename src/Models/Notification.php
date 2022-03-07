@@ -44,7 +44,7 @@ class Notification extends DatabaseNotification
      */
     public function markAsUnseen()
     {
-        if (!is_null($this->seen_at)) {
+        if (! is_null($this->seen_at)) {
             $this->forceFill(['seen_at' => null])->save();
         }
     }
@@ -95,7 +95,7 @@ class Notification extends DatabaseNotification
      */
     public function trivialized(): bool
     {
-        return !$this->is_prioritized;
+        return ! $this->is_prioritized;
     }
 
     /**

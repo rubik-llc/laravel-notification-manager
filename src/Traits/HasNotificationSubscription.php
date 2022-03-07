@@ -8,7 +8,6 @@ use Rubik\NotificationManager\Models\NotificationManager;
 
 trait HasNotificationSubscription
 {
-
     /**
      * Defines polymorphic relation between any Model and Notification Subscription
      *

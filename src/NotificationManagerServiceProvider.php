@@ -2,9 +2,9 @@
 
 namespace Rubik\NotificationManager;
 
+use Rubik\NotificationManager\Commands\NotificationManagerCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Rubik\NotificationManager\Commands\NotificationManagerCommand;
 
 class NotificationManagerServiceProvider extends PackageServiceProvider
 {
