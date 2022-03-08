@@ -1,7 +1,12 @@
 <?php
 
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Rubik\NotificationManager\Models\Notification;
+use Rubik\NotificationManager\Tests\TestSupport\Models\User;
+use function Pest\Laravel\assertDatabaseCount;
+use function PHPUnit\Framework\assertCount;
 
 it('marks a notification as seen', function () {
     $notification = Notification::factory()->create();
@@ -49,4 +54,26 @@ it('checks if a notification is muted', function () {
 it('checks if a notification needs authentication', function () {
     $notification = Notification::factory()->state(['needs_authentication' => true])->create();
     $this->assertTrue($notification->needsAuthentication() === true);
+});
+
+it('scope only seen notification', function () {
+    $user = User::factory()->create();
+    Notification::factory()->count(10)
+        ->state(new Sequence(
+            ['seen_at' => Carbon::now(), 'notifiable_id' => $user->id, 'notifiable_type' => get_class($user)],
+            ['seen_at' => null, 'notifiable_id' => $user->id, 'notifiable_type' => get_class($user)],
+        ))->state(['needs_authentication' => true])->create();
+    assertCount(5, $user->seenNotifications()->get());
+});
+
+
+it('scope only unseen notification', function () {
+    $user = User::factory()->create();
+    Notification::factory()->count(10)
+        ->state(new Sequence(
+            ['seen_at' => Carbon::now(), 'notifiable_id' => $user->id, 'notifiable_type' => get_class($user)],
+            ['seen_at' => null, 'notifiable_id' => $user->id, 'notifiable_type' => get_class($user)],
+        ))->create();
+    assertDatabaseCount('notifications', 10);
+    assertCount(5, $user->unseenNotifications()->get());
 });

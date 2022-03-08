@@ -3,7 +3,6 @@
 namespace Rubik\NotificationManager\Traits;
 
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Rubik\NotificationManager\Models\Notification;
 use Rubik\NotificationManager\Models\NotificationManager;
 
 trait HasNotificationSubscription
@@ -24,16 +23,16 @@ trait HasNotificationSubscription
      */
     public function channels(string $notification): array
     {
-        return explode(",", $this->subscriptions()->forNotification($notification)->first()->channel);
+        return explode(",", $this->notification($notification)->channel);
     }
 
-//    /**
-//     * Defines polymorphic relation between User and Notifications
-//     *
-//     * @return MorphMany
-//     */
-//    public function notifications(): MorphMany
-//    {
-//        return $this->morphMany(Notification::class, 'notifiable');
-//    }
+    /**
+     * @param string $notification
+     * @return NotificationManager
+     */
+    public function notification(string $notification): NotificationManager
+    {
+        return $this->subscriptions()->forNotification($notification)->first();
+    }
+
 }

@@ -16,6 +16,8 @@ use Rubik\NotificationManager\Enums\NotificationPreviewType;
  * @method static unsubscribe($subscribableNotificationClass, string $channel = '*'): void
  * @method static prioritize($subscribableNotificationClass): void
  * @method static trivialize( $subscribableNotificationClass): void
+ * @method static mute($subscribableNotificationClass): void
+ * @method static unmute($subscribableNotificationClass): void
  * @method static subscribeAll(string $channel = '*'): void
  * @method static unsubscribeAll(string $channel = '*'): void
  * @method static previewType($subscribableNotificationClass, NotificationPreviewType $notificationPreviewType): void

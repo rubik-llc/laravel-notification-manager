@@ -96,6 +96,41 @@ class NotificationManager
             ])->update(['is_prioritized' => false]);
     }
 
+
+    /**
+     *
+     * @param $subscribableNotificationClass
+     * @return void
+     */
+    public function mute($subscribableNotificationClass)
+    {
+        $this->subscribe($subscribableNotificationClass);
+
+        Models\NotificationManager::query()
+            ->where([
+                'notifiable_type' => get_class($this->notifiable),
+                'notifiable_id' => $this->notifiable->id,
+                'notification' => $subscribableNotificationClass::subscribableNotificationType(),
+            ])->update(['is_muted' => true]);
+    }
+
+    /**
+     *
+     * @param $subscribableNotificationClass
+     * @return void
+     */
+    public function unmute($subscribableNotificationClass)
+    {
+        $this->subscribe($subscribableNotificationClass);
+
+        Models\NotificationManager::query()
+            ->where([
+                'notifiable_type' => get_class($this->notifiable),
+                'notifiable_id' => $this->notifiable->id,
+                'notification' => $subscribableNotificationClass::subscribableNotificationType(),
+            ])->update(['is_muted' => false]);
+    }
+
     /**
      * @param string $channel
      * @return void

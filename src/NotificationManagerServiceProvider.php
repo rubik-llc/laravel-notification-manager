@@ -22,4 +22,5 @@ class NotificationManagerServiceProvider extends PackageServiceProvider
             ->hasMigration('create_notification_manager_table')
             ->hasCommand(NotificationManagerCommand::class);
     }
+
 }

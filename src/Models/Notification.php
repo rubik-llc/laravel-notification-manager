@@ -2,6 +2,7 @@
 
 namespace Rubik\NotificationManager\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\DatabaseNotification;
 use Rubik\NotificationManager\Collections\CustomDatabaseNotificationCollection;
@@ -44,7 +45,7 @@ class Notification extends DatabaseNotification
      */
     public function markAsUnseen()
     {
-        if (! is_null($this->seen_at)) {
+        if (!is_null($this->seen_at)) {
             $this->forceFill(['seen_at' => null])->save();
         }
     }
@@ -95,7 +96,7 @@ class Notification extends DatabaseNotification
      */
     public function trivialized(): bool
     {
-        return ! $this->is_prioritized;
+        return !$this->is_prioritized;
     }
 
     /**
@@ -106,6 +107,28 @@ class Notification extends DatabaseNotification
     public function needsAuthentication(): bool
     {
         return $this->needs_authentication;
+    }
+
+    /**
+     * Scope a query to only include seen notifications.
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeSeen(Builder $query)
+    {
+        return $query->whereNotNull('seen_at');
+    }
+
+    /**
+     * Scope a query to only include unseen notifications.
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeUnseen(Builder $query)
+    {
+        return $query->whereNull('seen_at');
     }
 
     /**

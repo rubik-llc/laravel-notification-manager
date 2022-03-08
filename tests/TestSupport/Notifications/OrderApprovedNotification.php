@@ -2,7 +2,6 @@
 
 namespace Rubik\NotificationManager\Tests\TestSupport\Notifications;
 
-use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
@@ -31,22 +30,14 @@ class OrderApprovedNotification extends Notification implements ShouldQueue, Sub
     }
 
     /**
-     * Get the array representation of the notification.
+     * Get the array representation of payload.
      *
      * @return array
      */
-    public function toArray(): array
+    public function setData(): array
     {
         return [
             'data' => $this->payload,
-            'is_prioritized' => null,
-            'is_muted' => null,
-            'alert_type' => null,
-            'preview_type' => null,
-            'needs_authentication' => null,
-            'read_at' => null,
-            'seen_at' => null,
-            'created_at' => Carbon::now(),
         ];
     }
 
