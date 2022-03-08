@@ -34,5 +34,4 @@ trait HasNotificationSubscription
     {
         return $this->subscriptions()->forNotification($notification)->first();
     }
-
 }

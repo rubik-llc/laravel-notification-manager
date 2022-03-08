@@ -96,7 +96,6 @@ class NotificationManager
             ])->update(['is_prioritized' => false]);
     }
 
-
     /**
      *
      * @param $subscribableNotificationClass

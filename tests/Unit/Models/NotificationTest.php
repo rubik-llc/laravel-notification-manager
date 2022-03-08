@@ -3,10 +3,10 @@
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Sequence;
-use Rubik\NotificationManager\Models\Notification;
-use Rubik\NotificationManager\Tests\TestSupport\Models\User;
 use function Pest\Laravel\assertDatabaseCount;
 use function PHPUnit\Framework\assertCount;
+use Rubik\NotificationManager\Models\Notification;
+use Rubik\NotificationManager\Tests\TestSupport\Models\User;
 
 it('marks a notification as seen', function () {
     $notification = Notification::factory()->create();

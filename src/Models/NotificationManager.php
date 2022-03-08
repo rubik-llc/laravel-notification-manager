@@ -75,5 +75,4 @@ class NotificationManager extends Model
     {
         $query->whereNull('unsubscribed_at');
     }
-
 }
