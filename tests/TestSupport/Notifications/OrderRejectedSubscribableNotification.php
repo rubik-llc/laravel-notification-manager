@@ -2,16 +2,13 @@
 
 namespace Rubik\NotificationManager\Tests\TestSupport\Notifications;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notification;
 use Rubik\NotificationManager\Contracts\SubscribableNotificationContract;
 use Rubik\NotificationManager\Traits\SubscribableNotification;
 
-class OrderApprovedNotification extends Notification implements ShouldQueue, SubscribableNotificationContract
+class OrderRejectedSubscribableNotification extends Notification implements SubscribableNotificationContract
 {
-    use Queueable;
     use SubscribableNotification;
 
     /**
@@ -25,27 +22,25 @@ class OrderApprovedNotification extends Notification implements ShouldQueue, Sub
      */
     public function __construct(Model $payload)
     {
-        $this->afterCommit();
         $this->payload = $payload;
     }
 
-    /**
-     * Get the array representation of payload.
-     *
-     * @return array
-     */
-    public function setData(): array
-    {
-        return [
-            'data' => $this->payload,
-        ];
-    }
 
     /**
      * @return string
      */
     public static function subscribableNotificationType(): string
     {
-        return 'order.approved';
+        return 'order.rejected';
+    }
+
+    /**
+     * Get the array representation of the notification.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->payload->toArray();
     }
 }

@@ -2,20 +2,22 @@
 
 namespace Rubik\NotificationManager;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Rubik\NotificationManager\Enums\NotificationAlertType;
 use Rubik\NotificationManager\Enums\NotificationPreviewType;
+use Rubik\NotificationManager\Models\NotificationManager as NotificationManagerModel;
 
 class NotificationManager
 {
+
     public Model|Authenticatable|null $notifiable;
 
-    public function __construct()
+    public function __construct($notifiable = null)
     {
-        $this->notifiable = Auth::user();
+        $this->notifiable = $notifiable ?? Auth::user();
     }
 
     /**
@@ -30,12 +32,14 @@ class NotificationManager
     }
 
     /**
+     * Subscribe a user to a notification
+     *
      * @param $subscribableNotificationClass
      * @param string $channel
      */
     public function subscribe($subscribableNotificationClass, string $channel = '*')
     {
-        Models\NotificationManager::updateOrCreate([
+        NotificationManagerModel::updateOrCreate([
             'notification' => $subscribableNotificationClass::subscribableNotificationType(),
             'notifiable_type' => get_class($this->notifiable),
             'notifiable_id' => $this->notifiable->id,
@@ -45,14 +49,17 @@ class NotificationManager
         ]);
     }
 
+
     /**
+     * Unsubscribe a user to a notification
+     *
      * @param $subscribableNotificationClass
      * @param string $channel
      * @return void
      */
     public function unsubscribe($subscribableNotificationClass, string $channel = '*')
     {
-        Models\NotificationManager::updateOrCreate([
+        NotificationManagerModel::updateOrCreate([
             'notification' => $subscribableNotificationClass::subscribableNotificationType(),
             'notifiable_type' => get_class($this->notifiable),
             'notifiable_id' => $this->notifiable->id,
@@ -62,7 +69,9 @@ class NotificationManager
         ]);
     }
 
+
     /**
+     * Prioritize a notification for a user
      *
      * @param $subscribableNotificationClass
      * @return void
@@ -71,7 +80,7 @@ class NotificationManager
     {
         $this->subscribe($subscribableNotificationClass);
 
-        Models\NotificationManager::query()
+        NotificationManagerModel::query()
             ->where([
                 'notifiable_type' => get_class($this->notifiable),
                 'notifiable_id' => $this->notifiable->id,
@@ -80,6 +89,7 @@ class NotificationManager
     }
 
     /**
+     * Trivialize a notification for a user
      *
      * @param $subscribableNotificationClass
      * @return void
@@ -88,7 +98,7 @@ class NotificationManager
     {
         $this->subscribe($subscribableNotificationClass);
 
-        Models\NotificationManager::query()
+        NotificationManagerModel::query()
             ->where([
                 'notifiable_type' => get_class($this->notifiable),
                 'notifiable_id' => $this->notifiable->id,
@@ -96,7 +106,9 @@ class NotificationManager
             ])->update(['is_prioritized' => false]);
     }
 
+
     /**
+     * Mute a notification for a user
      *
      * @param $subscribableNotificationClass
      * @return void
@@ -105,7 +117,7 @@ class NotificationManager
     {
         $this->subscribe($subscribableNotificationClass);
 
-        Models\NotificationManager::query()
+        NotificationManagerModel::query()
             ->where([
                 'notifiable_type' => get_class($this->notifiable),
                 'notifiable_id' => $this->notifiable->id,
@@ -113,7 +125,9 @@ class NotificationManager
             ])->update(['is_muted' => true]);
     }
 
+
     /**
+     * Mute a notification for a user
      *
      * @param $subscribableNotificationClass
      * @return void
@@ -122,7 +136,7 @@ class NotificationManager
     {
         $this->subscribe($subscribableNotificationClass);
 
-        Models\NotificationManager::query()
+        NotificationManagerModel::query()
             ->where([
                 'notifiable_type' => get_class($this->notifiable),
                 'notifiable_id' => $this->notifiable->id,
@@ -130,13 +144,16 @@ class NotificationManager
             ])->update(['is_muted' => false]);
     }
 
+
     /**
+     * Subscribe to all notifications for a user
+     *
      * @param string $channel
      * @return void
      */
     public function subscribeAll(string $channel = '*')
     {
-        Models\NotificationManager::query()
+        NotificationManagerModel::query()
             ->where([
                 'notifiable_type' => get_class($this->notifiable),
                 'notifiable_id' => $this->notifiable->id,
@@ -144,13 +161,16 @@ class NotificationManager
             ->update(['unsubscribed_at' => null, 'channel' => $channel]);
     }
 
+
     /**
+     * Unsubscribe form all notifications for a user
+     *
      * @param string $channel
      * @return void
      */
     public function unsubscribeAll(string $channel = '*')
     {
-        Models\NotificationManager::query()
+        NotificationManagerModel::query()
             ->where([
                 'notifiable_type' => get_class($this->notifiable),
                 'notifiable_id' => $this->notifiable->id,
@@ -158,7 +178,9 @@ class NotificationManager
             ->update(['unsubscribed_at' => Carbon::now(), 'channel' => $channel]);
     }
 
+
     /**
+     * Update alert type for a user
      *
      * @param $subscribableNotificationClass
      * @param NotificationAlertType $notificationAlertType
@@ -168,7 +190,7 @@ class NotificationManager
     {
         $this->subscribe($subscribableNotificationClass);
 
-        Models\NotificationManager::query()
+        NotificationManagerModel::query()
             ->where([
                 'notifiable_type' => get_class($this->notifiable),
                 'notifiable_id' => $this->notifiable->id,
@@ -176,7 +198,9 @@ class NotificationManager
             ])->update(['alert_type' => $notificationAlertType->value]);
     }
 
+
     /**
+     * Update preview type for a user
      *
      * @param $subscribableNotificationClass
      * @param NotificationPreviewType $notificationPreviewType
@@ -186,11 +210,28 @@ class NotificationManager
     {
         $this->subscribe($subscribableNotificationClass);
 
-        Models\NotificationManager::query()
+        NotificationManagerModel::query()
             ->where([
                 'notifiable_type' => get_class($this->notifiable),
                 'notifiable_id' => $this->notifiable->id,
                 'notification' => $subscribableNotificationClass::subscribableNotificationType(),
             ])->update(['preview_type' => $notificationPreviewType->value]);
+    }
+
+
+    /**
+     * Retrieve notification details
+     *
+     * @param $subscribableNotificationClass
+     * @param Model $notifiable
+     * @return NotificationManagerModel
+     */
+    public function details($subscribableNotificationClass, Model $notifiable): NotificationManagerModel
+    {
+        return NotificationManagerModel::where([
+            'notifiable_type' => get_class($notifiable),
+            'notifiable_id' => $notifiable->id,
+            'notification' => $subscribableNotificationClass->subscribableNotificationType(),
+        ])->first();
     }
 }

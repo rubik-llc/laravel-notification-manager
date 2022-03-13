@@ -4,12 +4,12 @@ namespace Rubik\NotificationManager\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Notifications\DatabaseNotification;
-use Rubik\NotificationManager\Collections\CustomDatabaseNotificationCollection;
+use Illuminate\Notifications\DatabaseNotification as BaseDatabaseNotification;
+use Rubik\NotificationManager\Collections\DatabaseNotificationCollection;
 use Rubik\NotificationManager\Enums\NotificationAlertType;
 use Rubik\NotificationManager\Enums\NotificationPreviewType;
 
-class Notification extends DatabaseNotification
+class DatabaseNotification extends BaseDatabaseNotification
 {
     use HasFactory;
 
@@ -24,6 +24,8 @@ class Notification extends DatabaseNotification
         'seen_at' => 'datetime',
         'alert_type' => NotificationAlertType::class,
         'preview_type' => NotificationPreviewType::class,
+        'data' => 'array',
+        'read_at' => 'datetime',
     ];
 
     /**
@@ -45,7 +47,7 @@ class Notification extends DatabaseNotification
      */
     public function markAsUnseen()
     {
-        if (! is_null($this->seen_at)) {
+        if (!is_null($this->seen_at)) {
             $this->forceFill(['seen_at' => null])->save();
         }
     }
@@ -96,7 +98,7 @@ class Notification extends DatabaseNotification
      */
     public function trivialized(): bool
     {
-        return ! $this->is_prioritized;
+        return !$this->is_prioritized;
     }
 
     /**
@@ -135,10 +137,10 @@ class Notification extends DatabaseNotification
      * Create a new database notification collection instance.
      *
      * @param array $models
-     * @return CustomDatabaseNotificationCollection
+     * @return DatabaseNotificationCollection
      */
-    public function newCollection(array $models = []): CustomDatabaseNotificationCollection
+    public function newCollection(array $models = []): DatabaseNotificationCollection
     {
-        return new CustomDatabaseNotificationCollection($models);
+        return new DatabaseNotificationCollection($models);
     }
 }

@@ -5,7 +5,7 @@ namespace Rubik\NotificationManager\Traits;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Notifications\Notifiable as BaseNotifiable;
-use Rubik\NotificationManager\Models\Notification;
+use Rubik\NotificationManager\Models\DatabaseNotification;
 
 trait Notifiable
 {
@@ -18,7 +18,7 @@ trait Notifiable
      */
     public function notifications(): MorphMany
     {
-        return $this->morphMany(Notification::class, 'notifiable')->latest();
+        return $this->morphMany(DatabaseNotification::class, 'notifiable')->latest();
     }
 
     /**

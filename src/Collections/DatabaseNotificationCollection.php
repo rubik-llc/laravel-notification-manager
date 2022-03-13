@@ -2,9 +2,9 @@
 
 namespace Rubik\NotificationManager\Collections;
 
-use Illuminate\Notifications\DatabaseNotificationCollection;
+use Illuminate\Notifications\DatabaseNotificationCollection as BaseDatabaseNotificationCollection;
 
-class CustomDatabaseNotificationCollection extends DatabaseNotificationCollection
+class DatabaseNotificationCollection extends BaseDatabaseNotificationCollection
 {
     /**
      * Mark all notifications as seen.

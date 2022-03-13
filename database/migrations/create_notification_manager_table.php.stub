@@ -15,11 +15,11 @@ return new class extends Migration {
             $table->string('type');
             $table->uuidMorphs('notifiable');
             $table->text('data');
-            $table->string('alert_type');
-            $table->string('preview_type');
-            $table->boolean('is_prioritized');
-            $table->boolean('is_muted');
-            $table->boolean('needs_authentication')->default(1);
+            $table->string('alert_type')->nullable();
+            $table->string('preview_type')->nullable();
+            $table->boolean('is_prioritized')->nullable();
+            $table->boolean('is_muted')->nullable();
+            $table->boolean('needs_authentication')->nullable();
             $table->timestamp('read_at')->nullable();
             $table->timestamp('seen_at')->nullable();
             $table->timestamps();

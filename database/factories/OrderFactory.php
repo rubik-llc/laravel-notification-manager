@@ -11,6 +11,11 @@ class OrderFactory extends Factory
 {
     protected $model = Order::class;
 
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
     public function definition()
     {
         return [

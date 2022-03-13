@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Rubik\NotificationManager\Enums\NotificationAlertType;
 use Rubik\NotificationManager\Enums\NotificationPreviewType;
-use Rubik\NotificationManager\Models\Notification;
+use Rubik\NotificationManager\Models\DatabaseNotification;
 use Rubik\NotificationManager\Tests\TestSupport\Models\Order;
 use Rubik\NotificationManager\Tests\TestSupport\Models\User;
 
-class NotificationFactory extends Factory
+class DatabaseNotificationFactory extends Factory
 {
 
-    protected $model = Notification::class;
+    protected $model = DatabaseNotification::class;
 
 
     /**
