@@ -25,7 +25,6 @@ class OrderRejectedSubscribableNotification extends Notification implements Subs
         $this->payload = $payload;
     }
 
-
     /**
      * @return string
      */

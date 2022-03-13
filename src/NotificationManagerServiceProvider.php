@@ -40,6 +40,5 @@ class NotificationManagerServiceProvider extends PackageServiceProvider
     {
         $this->app->instance(BaseDatabaseChannel::class, new DatabaseChannel());
         $this->app->instance(BaseDatabaseNotification::class, new DatabaseNotification());
-
     }
 }

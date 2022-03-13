@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
+use function Pest\Laravel\actingAs;
 use Rubik\NotificationManager\Enums\NotificationAlertType;
 use Rubik\NotificationManager\Enums\NotificationPreviewType;
 use Rubik\NotificationManager\Facades\NotificationManager;
@@ -10,15 +11,14 @@ use Rubik\NotificationManager\Tests\TestSupport\Models\Order;
 use Rubik\NotificationManager\Tests\TestSupport\Models\User;
 use Rubik\NotificationManager\Tests\TestSupport\Notifications\OrderApprovedSubscribableNotification;
 use Rubik\NotificationManager\Tests\TestSupport\Notifications\OrderRejectedSubscribableNotification;
-use function Pest\Laravel\actingAs;
 use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(function () {
     $this->loggedInUser = User::factory()->create();
     actingAs($this->loggedInUser);
     $this->user = User::factory()->create();
-    $this->approvedOrder = Order::factory()->state(fn() => ['approved' => true])->create();
-    $this->rejectedOrder = Order::factory()->state(fn() => ['approved' => false])->create();
+    $this->approvedOrder = Order::factory()->state(fn () => ['approved' => true])->create();
+    $this->rejectedOrder = Order::factory()->state(fn () => ['approved' => false])->create();
     Notification::fake();
 });
 
@@ -46,7 +46,6 @@ it('can subscribe to a notification for a user', function () {
         'notification' => 'order.approved',
         'unsubscribed_at' => null,
     ]);
-
 });
 
 it('can subscribe to all notifications', function () {
@@ -74,7 +73,6 @@ it('can subscribe to all notifications', function () {
         'notification' => 'order.rejected',
         'unsubscribed_at' => null,
     ]);
-
 });
 
 it('can subscribe a user to all notifications', function () {
@@ -103,7 +101,6 @@ it('can subscribe a user to all notifications', function () {
         'notification' => 'order.rejected',
         'unsubscribed_at' => null,
     ]);
-
 });
 
 it('can unsubscribe to a notification', function () {
@@ -171,7 +168,6 @@ it('can unsubscribe from all notifications', function () {
         'notification' => 'order.rejected',
         'unsubscribed_at' => Carbon::now(),
     ]);
-
 });
 
 it('can unsubscribe a user from all notifications', function () {
@@ -199,7 +195,6 @@ it('can unsubscribe a user from all notifications', function () {
         'notification' => 'order.rejected',
         'unsubscribed_at' => Carbon::now(),
     ]);
-
 });
 
 it('can prioritize a notification', function () {
@@ -214,7 +209,6 @@ it('can prioritize a notification', function () {
         'notification' => 'order.approved',
         'is_prioritized' => true,
     ]);
-
 });
 it('can prioritize a notification for a user', function () {
     NotificationManager::for($this->user)->prioritize(OrderApprovedSubscribableNotification::class);
@@ -228,7 +222,6 @@ it('can prioritize a notification for a user', function () {
         'notification' => 'order.approved',
         'is_prioritized' => true,
     ]);
-
 });
 it('can trivialize a notification', function () {
     NotificationManager::trivialize(OrderApprovedSubscribableNotification::class);
@@ -242,7 +235,6 @@ it('can trivialize a notification', function () {
         'notification' => 'order.approved',
         'is_prioritized' => false,
     ]);
-
 });
 it('can trivialize a notification for a user', function () {
     NotificationManager::for($this->user)->trivialize(OrderApprovedSubscribableNotification::class);
@@ -256,7 +248,6 @@ it('can trivialize a notification for a user', function () {
         'notification' => 'order.approved',
         'is_prioritized' => false,
     ]);
-
 });
 
 it('can mute a notification', function () {
@@ -271,7 +262,6 @@ it('can mute a notification', function () {
         'notification' => 'order.approved',
         'is_muted' => true,
     ]);
-
 });
 it('can mute a notification for a user', function () {
     NotificationManager::for($this->user)->mute(OrderApprovedSubscribableNotification::class);
@@ -285,7 +275,6 @@ it('can mute a notification for a user', function () {
         'notification' => 'order.approved',
         'is_muted' => true,
     ]);
-
 });
 
 it('can unmute a notification', function () {
@@ -300,7 +289,6 @@ it('can unmute a notification', function () {
         'notification' => 'order.approved',
         'is_muted' => false,
     ]);
-
 });
 it('can unmute a notification for a user', function () {
     NotificationManager::for($this->user)->unmute(OrderApprovedSubscribableNotification::class);
@@ -314,7 +302,6 @@ it('can unmute a notification for a user', function () {
         'notification' => 'order.approved',
         'is_muted' => false,
     ]);
-
 });
 
 it('can set alert type of notification', function () {
@@ -329,7 +316,6 @@ it('can set alert type of notification', function () {
         'notification' => 'order.approved',
         'alert_type' => NotificationAlertType::BANNER->value,
     ]);
-
 });
 it('can set alert type of notification for a user', function () {
     NotificationManager::for($this->user)->alertType(OrderApprovedSubscribableNotification::class, NotificationAlertType::BANNER);
@@ -343,7 +329,6 @@ it('can set alert type of notification for a user', function () {
         'notification' => 'order.approved',
         'alert_type' => NotificationAlertType::BANNER->value,
     ]);
-
 });
 
 it('can set preview type of notification', function () {
@@ -358,7 +343,6 @@ it('can set preview type of notification', function () {
         'notification' => 'order.approved',
         'preview_type' => NotificationPreviewType::ALWAYS->value,
     ]);
-
 });
 it('can set preview type of notification for a user', function () {
     NotificationManager::for($this->user)->previewType(OrderApprovedSubscribableNotification::class, NotificationPreviewType::ALWAYS);
@@ -372,7 +356,6 @@ it('can set preview type of notification for a user', function () {
         'notification' => 'order.approved',
         'preview_type' => NotificationPreviewType::ALWAYS->value,
     ]);
-
 });
 
 it('can not send notification to non subscribers', function () {

@@ -12,7 +12,6 @@ use Rubik\NotificationManager\Models\NotificationManager as NotificationManagerM
 
 class NotificationManager
 {
-
     public Model|Authenticatable|null $notifiable;
 
     public function __construct($notifiable = null)
@@ -49,7 +48,6 @@ class NotificationManager
         ]);
     }
 
-
     /**
      * Unsubscribe a user to a notification
      *
@@ -68,7 +66,6 @@ class NotificationManager
             'unsubscribed_at' => Carbon::now(),
         ]);
     }
-
 
     /**
      * Prioritize a notification for a user
@@ -106,7 +103,6 @@ class NotificationManager
             ])->update(['is_prioritized' => false]);
     }
 
-
     /**
      * Mute a notification for a user
      *
@@ -124,7 +120,6 @@ class NotificationManager
                 'notification' => $subscribableNotificationClass::subscribableNotificationType(),
             ])->update(['is_muted' => true]);
     }
-
 
     /**
      * Mute a notification for a user
@@ -144,7 +139,6 @@ class NotificationManager
             ])->update(['is_muted' => false]);
     }
 
-
     /**
      * Subscribe to all notifications for a user
      *
@@ -161,7 +155,6 @@ class NotificationManager
             ->update(['unsubscribed_at' => null, 'channel' => $channel]);
     }
 
-
     /**
      * Unsubscribe form all notifications for a user
      *
@@ -177,7 +170,6 @@ class NotificationManager
             ])
             ->update(['unsubscribed_at' => Carbon::now(), 'channel' => $channel]);
     }
-
 
     /**
      * Update alert type for a user
@@ -198,7 +190,6 @@ class NotificationManager
             ])->update(['alert_type' => $notificationAlertType->value]);
     }
 
-
     /**
      * Update preview type for a user
      *
@@ -217,7 +208,6 @@ class NotificationManager
                 'notification' => $subscribableNotificationClass::subscribableNotificationType(),
             ])->update(['preview_type' => $notificationPreviewType->value]);
     }
-
 
     /**
      * Retrieve notification details

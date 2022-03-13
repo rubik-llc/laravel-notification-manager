@@ -14,7 +14,6 @@ trait SubscribableNotification
 {
     abstract public static function subscribableNotificationType(): string;
 
-
     /**
      * Send a notification to all subscribers
      *
@@ -93,6 +92,6 @@ trait SubscribableNotification
             ->subscribed()
             ->forNotification(self::subscribableNotificationType())
             ->get()
-            ->map(fn(NotificationManager $notificationSubscription) => $notificationSubscription->notifiable)->unique();
+            ->map(fn (NotificationManager $notificationSubscription) => $notificationSubscription->notifiable)->unique();
     }
 }
