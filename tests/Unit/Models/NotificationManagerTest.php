@@ -26,5 +26,3 @@ it('can scope based on notification', function () {
     assertCount(5, NotificationManager::forNotification('order.accepted')->get());
     assertCount(5, NotificationManager::forNotification('order.rejected')->get());
 });
-
-

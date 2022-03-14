@@ -2,17 +2,15 @@
 
 namespace Rubik\NotificationManager\Tests\TestSupport\Factories;
 
+use function collect;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Rubik\NotificationManager\Enums\NotificationAlertType;
 use Rubik\NotificationManager\Enums\NotificationPreviewType;
 use Rubik\NotificationManager\Models\NotificationManager;
 use Rubik\NotificationManager\Tests\TestSupport\Models\User;
-use function collect;
 
 class NotificationManagerFactory extends Factory
 {
-
-
     protected $model = NotificationManager::class;
 
     /**

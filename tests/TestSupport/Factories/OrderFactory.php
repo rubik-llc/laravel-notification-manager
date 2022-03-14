@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Rubik\NotificationManager\Tests\TestSupport\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -25,4 +24,3 @@ class OrderFactory extends Factory
         ];
     }
 }
-

@@ -5,9 +5,9 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use function Pest\Laravel\assertDatabaseCount;
 use function PHPUnit\Framework\assertCount;
+use function PHPUnit\Framework\assertTrue;
 use Rubik\NotificationManager\Models\DatabaseNotification;
 use Rubik\NotificationManager\Tests\TestSupport\Models\User;
-use function PHPUnit\Framework\assertTrue;
 
 it('marks a notification as seen', function () {
     $notification = DatabaseNotification::factory()->create();

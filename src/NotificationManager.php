@@ -225,7 +225,6 @@ class NotificationManager
         ])->first();
     }
 
-
     public function subscribable($subscribableNotificationClass): NotificationManagerModel
     {
         return NotificationManagerModel::where([
@@ -233,6 +232,5 @@ class NotificationManager
             'notifiable_id' => $this->notifiable->id,
             'notification' => $subscribableNotificationClass::subscribableNotificationType(),
         ])->first();
-
     }
 }

@@ -29,7 +29,6 @@ class NotificationManagerServiceProvider extends PackageServiceProvider
 
     public function packageRegistered()
     {
-
     }
 
     public function packageBooted()

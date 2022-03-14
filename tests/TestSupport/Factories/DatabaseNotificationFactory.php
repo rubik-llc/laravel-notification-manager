@@ -13,7 +13,6 @@ use Rubik\NotificationManager\Tests\TestSupport\Models\User;
 
 class DatabaseNotificationFactory extends Factory
 {
-
     protected $model = DatabaseNotification::class;
 
 
@@ -23,7 +22,6 @@ class DatabaseNotificationFactory extends Factory
      * @var string
      */
     private string $type = "Rubik\\NotificationManager\\Tests\\TestSupport\\Notifications\\OrderApprovedNotification.php";
-
 
     /**
      * Define the model's default state.
