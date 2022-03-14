@@ -1,6 +1,6 @@
 <?php
 
-namespace Rubik\NotificationManager\Database\Factories;
+namespace Rubik\NotificationManager\Tests\TestSupport\Factories;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;

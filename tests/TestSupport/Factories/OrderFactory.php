@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Rubik\NotificationManager\Database\Factories;
+namespace Rubik\NotificationManager\Tests\TestSupport\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Rubik\NotificationManager\Tests\TestSupport\Models\Order;

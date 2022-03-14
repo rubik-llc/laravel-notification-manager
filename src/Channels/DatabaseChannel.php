@@ -27,11 +27,11 @@ class DatabaseChannel extends BaseDatabaseChannel
 
         if (method_exists($notification, 'details')) {
             $extraAttributes = [
-                'is_prioritized' => $notification->details($notification, $notifiable)->is_prioritized,
-                'is_muted' => $notification->details($notification, $notifiable)->is_muted,
-                'alert_type' => $notification->details($notification, $notifiable)->alert_type->value,
-                'preview_type' => $notification->details($notification, $notifiable)->preview_type->value,
-                'needs_authentication' => $notification->details($notification, $notifiable)->needs_authentication,
+                'is_prioritized' => $notification->details($notifiable)->is_prioritized,
+                'is_muted' => $notification->details($notifiable)->is_muted,
+                'alert_type' => $notification->details($notifiable)->alert_type->value,
+                'preview_type' => $notification->details($notifiable)->preview_type->value,
+                'needs_authentication' => $notification->details($notifiable)->needs_authentication,
             ];
         }
 

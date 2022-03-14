@@ -2,19 +2,21 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
-use function Pest\Laravel\actingAs;
 use Rubik\NotificationManager\Enums\NotificationAlertType;
 use Rubik\NotificationManager\Enums\NotificationPreviewType;
 use Rubik\NotificationManager\Facades\NotificationManager;
 use Rubik\NotificationManager\Tests\TestSupport\Models\Order;
 use Rubik\NotificationManager\Tests\TestSupport\Models\User;
 use Rubik\NotificationManager\Tests\TestSupport\Notifications\OrderApprovedSubscribableNotification;
+use function Pest\Laravel\actingAs;
+use function Pest\Laravel\assertDatabaseHas;
+use function PHPUnit\Framework\assertCount;
 
 beforeEach(function () {
     $this->loggedInUser = User::factory()->create();
     actingAs($this->loggedInUser);
-    $this->approvedOrder = Order::factory()->state(fn () => ['approved' => true])->create();
-    $this->rejectedOrder = Order::factory()->state(fn () => ['approved' => false])->create();
+    $this->approvedOrder = Order::factory()->state(fn() => ['approved' => true])->create();
+    $this->rejectedOrder = Order::factory()->state(fn() => ['approved' => false])->create();
     Notification::fake();
 });
 
@@ -22,7 +24,7 @@ it('checks if a notification is seen', function () {
     NotificationManager::for(User::factory()->create())->subscribe(OrderApprovedSubscribableNotification::class);
     NotificationManager::for(User::factory()->create())->subscribe(OrderApprovedSubscribableNotification::class);
     NotificationManager::for(User::factory()->create())->subscribe(OrderApprovedSubscribableNotification::class);
-    $this->assertCount(3, OrderApprovedSubscribableNotification::subscribers());
+    assertCount(3, OrderApprovedSubscribableNotification::subscribers());
 });
 
 it('can subscribe to a notification using notification class', function () {
@@ -30,7 +32,7 @@ it('can subscribe to a notification using notification class', function () {
     OrderApprovedSubscribableNotification::sendToSubscribers($this->approvedOrder);
     Notification::assertSentTo($this->loggedInUser, OrderApprovedSubscribableNotification::class);
     Notification::assertTimesSent(1, OrderApprovedSubscribableNotification::class);
-    $this->assertDatabaseHas('notification_managers', [
+    assertDatabaseHas('notification_managers', [
         'notifiable_type' => get_class(Auth::user()),
         'notifiable_id' => Auth::id(),
         'notification' => 'order.approved',
@@ -47,7 +49,7 @@ it('can unsubscribe to a notification using notification class', function () {
     OrderApprovedSubscribableNotification::sendToSubscribers($this->approvedOrder);
     Notification::assertTimesSent(1, OrderApprovedSubscribableNotification::class);
 
-    $this->assertDatabaseHas('notification_managers', [
+    assertDatabaseHas('notification_managers', [
         'notifiable_type' => get_class(Auth::user()),
         'notifiable_id' => Auth::id(),
         'notification' => 'order.approved',
@@ -61,7 +63,7 @@ it('can prioritize a notification using notification class', function () {
     Notification::assertSentTo($this->loggedInUser, OrderApprovedSubscribableNotification::class);
     Notification::assertTimesSent(1, OrderApprovedSubscribableNotification::class);
 
-    $this->assertDatabaseHas('notification_managers', [
+    assertDatabaseHas('notification_managers', [
         'notifiable_type' => get_class(Auth::user()),
         'notifiable_id' => Auth::id(),
         'notification' => 'order.approved',
@@ -74,7 +76,7 @@ it('can trivialize a notification using notification class', function () {
     Notification::assertSentTo($this->loggedInUser, OrderApprovedSubscribableNotification::class);
     Notification::assertTimesSent(1, OrderApprovedSubscribableNotification::class);
 
-    $this->assertDatabaseHas('notification_managers', [
+    assertDatabaseHas('notification_managers', [
         'notifiable_type' => get_class(Auth::user()),
         'notifiable_id' => Auth::id(),
         'notification' => 'order.approved',
@@ -87,7 +89,7 @@ it('can mute a notification using notification class', function () {
     Notification::assertSentTo($this->loggedInUser, OrderApprovedSubscribableNotification::class);
     Notification::assertTimesSent(1, OrderApprovedSubscribableNotification::class);
 
-    $this->assertDatabaseHas('notification_managers', [
+    assertDatabaseHas('notification_managers', [
         'notifiable_type' => get_class(Auth::user()),
         'notifiable_id' => Auth::id(),
         'notification' => 'order.approved',
@@ -100,7 +102,7 @@ it('can unmute a notification using notification class', function () {
     Notification::assertSentTo($this->loggedInUser, OrderApprovedSubscribableNotification::class);
     Notification::assertTimesSent(1, OrderApprovedSubscribableNotification::class);
 
-    $this->assertDatabaseHas('notification_managers', [
+    assertDatabaseHas('notification_managers', [
         'notifiable_type' => get_class(Auth::user()),
         'notifiable_id' => Auth::id(),
         'notification' => 'order.approved',
@@ -113,7 +115,7 @@ it('can set alert type of notification using notification class', function () {
     Notification::assertSentTo($this->loggedInUser, OrderApprovedSubscribableNotification::class);
     Notification::assertTimesSent(1, OrderApprovedSubscribableNotification::class);
 
-    $this->assertDatabaseHas('notification_managers', [
+    assertDatabaseHas('notification_managers', [
         'notifiable_type' => get_class(Auth::user()),
         'notifiable_id' => Auth::id(),
         'notification' => 'order.approved',
@@ -126,7 +128,7 @@ it('can set preview type of notification using notification class', function () 
     Notification::assertSentTo($this->loggedInUser, OrderApprovedSubscribableNotification::class);
     Notification::assertTimesSent(1, OrderApprovedSubscribableNotification::class);
 
-    $this->assertDatabaseHas('notification_managers', [
+    assertDatabaseHas('notification_managers', [
         'notifiable_type' => get_class(Auth::user()),
         'notifiable_id' => Auth::id(),
         'notification' => 'order.approved',

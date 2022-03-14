@@ -7,53 +7,54 @@ use function Pest\Laravel\assertDatabaseCount;
 use function PHPUnit\Framework\assertCount;
 use Rubik\NotificationManager\Models\DatabaseNotification;
 use Rubik\NotificationManager\Tests\TestSupport\Models\User;
+use function PHPUnit\Framework\assertTrue;
 
 it('marks a notification as seen', function () {
     $notification = DatabaseNotification::factory()->create();
-    $this->assertTrue($notification->seen_at === null);
+    assertTrue($notification->seen_at === null);
     $notification->markAsSeen();
-    $this->assertTrue($notification->seen_at !== null);
+    assertTrue($notification->seen_at !== null);
 });
 
 
 it('marks a notification as unseen', function () {
     $notification = DatabaseNotification::factory()->create();
-    $this->assertTrue($notification->seen_at === null);
+    assertTrue($notification->seen_at === null);
     $notification->markAsSeen();
-    $this->assertTrue($notification->seen_at !== null);
+    assertTrue($notification->seen_at !== null);
     $notification->markAsUnseen();
-    $this->assertTrue($notification->seen_at === null);
+    assertTrue($notification->seen_at === null);
 });
 
 it('checks if a notification is seen', function () {
     $notification = DatabaseNotification::factory()->create();
     $notification->markAsSeen();
-    $this->assertTrue($notification->seen() === true);
+    assertTrue($notification->seen() === true);
 });
 
 it('checks if a notification is unseen', function () {
     $notification = DatabaseNotification::factory()->create();
-    $this->assertTrue($notification->unseen() === true);
+    assertTrue($notification->unseen() === true);
 });
 
 it('checks if a notification is prioritized', function () {
     $notification = DatabaseNotification::factory()->state(['is_prioritized' => true])->create();
-    $this->assertTrue($notification->prioritized() === true);
+    assertTrue($notification->prioritized() === true);
 });
 
 it('checks if a notification is trivialized', function () {
     $notification = DatabaseNotification::factory()->state(['is_prioritized' => false])->create();
-    $this->assertTrue($notification->trivialized() === true);
+    assertTrue($notification->trivialized() === true);
 });
 
 it('checks if a notification is muted', function () {
     $notification = DatabaseNotification::factory()->state(['is_muted' => true])->create();
-    $this->assertTrue($notification->muted() === true);
+    assertTrue($notification->muted() === true);
 });
 
 it('checks if a notification needs authentication', function () {
     $notification = DatabaseNotification::factory()->state(['needs_authentication' => true])->create();
-    $this->assertTrue($notification->needsAuthentication() === true);
+    assertTrue($notification->needsAuthentication() === true);
 });
 
 it('scope only seen notification', function () {

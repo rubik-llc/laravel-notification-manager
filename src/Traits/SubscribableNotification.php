@@ -2,6 +2,7 @@
 
 namespace Rubik\NotificationManager\Traits;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Notification;
@@ -77,9 +78,9 @@ trait SubscribableNotification
         NotificationManagerFacade::alertType(static::class, $notificationAlertType);
     }
 
-    public static function details($notification, Model $notifiable): NotificationManager
+    public static function details(Authenticatable|Model $notifiable): NotificationManager
     {
-        return NotificationManagerFacade::details($notification, $notifiable);
+        return NotificationManagerFacade::details(static::class, $notifiable);
     }
 
     /**
@@ -92,6 +93,6 @@ trait SubscribableNotification
             ->subscribed()
             ->forNotification(self::subscribableNotificationType())
             ->get()
-            ->map(fn (NotificationManager $notificationSubscription) => $notificationSubscription->notifiable)->unique();
+            ->map(fn(NotificationManager $notificationSubscription) => $notificationSubscription->notifiable)->unique();
     }
 }

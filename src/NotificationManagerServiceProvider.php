@@ -4,7 +4,6 @@ namespace Rubik\NotificationManager;
 
 use Illuminate\Notifications\Channels\DatabaseChannel as BaseDatabaseChannel;
 use Illuminate\Notifications\DatabaseNotification as BaseDatabaseNotification;
-use Illuminate\Support\Facades\Auth;
 use Rubik\NotificationManager\Channels\DatabaseChannel;
 use Rubik\NotificationManager\Commands\NotificationManagerCommand;
 use Rubik\NotificationManager\Models\DatabaseNotification;
@@ -30,10 +29,7 @@ class NotificationManagerServiceProvider extends PackageServiceProvider
 
     public function packageRegistered()
     {
-//        $this->app->bind(NotificationManager::class, function ($app) {
-//            dump($app);
-//            return new NotificationManager(Auth::user());
-//        });
+
     }
 
     public function packageBooted()

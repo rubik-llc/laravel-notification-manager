@@ -23,6 +23,7 @@ use Rubik\NotificationManager\Enums\NotificationPreviewType;
  * @method static previewType($subscribableNotificationClass, NotificationPreviewType $notificationPreviewType): void
  * @method static alertType($subscribableNotificationClass, NotificationAlertType $notificationAlertType): void
  * @method static details($subscribableNotificationClass, Model $notifiable): NotificationManagerModel
+ * @method static subscribable($subscribableNotificationClass): NotificationManagerModel
  */
 class NotificationManager extends Facade
 {

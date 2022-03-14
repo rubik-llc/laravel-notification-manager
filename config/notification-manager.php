@@ -1,22 +1,41 @@
 <?php
 // config for Rubik/NotificationManager
-use Rubik\NotificationManager\Tests\TestSupport\Notifications\OrderApprovedNotification;
-use Rubik\NotificationManager\Tests\TestSupport\Notifications\OrderRejectedNotification;
+
 
 return [
-    //User model
-    'UserModel' => "",
-    //Team model
-    'TeamModel' => "",
-    //Do you use UUID as foreign key
-    'user_uuid' => false,
-    //Do you use UUID as foreign key
-    'team_uuid' => false,
-    //Add here all notifications that you want to manage based on subscription
+
+    /*
+    |--------------------------------------------------------------------------
+    | Subscribable notifications
+    |--------------------------------------------------------------------------
+    |
+    | All notifications which we would like to be subscribable must be placed here.
+    | If artisan command is used to create subscribable notification this will be autofilled
+    |
+    | Example:
+    |   'subscribable_notifications' => [
+    |       'order.accepted' => Rubik\NotificationManager\Tests\TestSupport\Notifications\OrderApprovedSubscribableNotification,
+    |       'order.rejected' => Rubik\NotificationManager\Tests\TestSupport\Notifications\OrderRejectedSubscribableNotification,
+    |   ],
+    */
+
     'subscribable_notifications' => [
-        'order.accepted' => OrderApprovedNotification::class,
-        'order.rejected' => OrderRejectedNotification::class,
+
     ],
-    //Add here all notifications that you want to manage based on subscription
-    'default_channels' => "database,broadcast"
+
+    /*
+    |--------------------------------------------------------------------------
+    | Channels
+    |--------------------------------------------------------------------------
+    |
+    | All available channels must be placed here
+    | A notification will be sent to all these channels if model is subscribed to all channel("*").
+    | Example
+    | 'channels' => "database,broadcast",
+    |
+    */
+
+    'channels' => "",
+
+
 ];

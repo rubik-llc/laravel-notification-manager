@@ -221,7 +221,18 @@ class NotificationManager
         return NotificationManagerModel::where([
             'notifiable_type' => get_class($notifiable),
             'notifiable_id' => $notifiable->id,
-            'notification' => $subscribableNotificationClass->subscribableNotificationType(),
+            'notification' => $subscribableNotificationClass::subscribableNotificationType(),
         ])->first();
+    }
+
+
+    public function subscribable($subscribableNotificationClass): NotificationManagerModel
+    {
+        return NotificationManagerModel::where([
+            'notifiable_type' => get_class($this->notifiable),
+            'notifiable_id' => $this->notifiable->id,
+            'notification' => $subscribableNotificationClass::subscribableNotificationType(),
+        ])->first();
+
     }
 }

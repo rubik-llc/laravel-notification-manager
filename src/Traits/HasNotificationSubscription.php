@@ -23,7 +23,12 @@ trait HasNotificationSubscription
      */
     public function channels(string $notification): array
     {
-        return explode(",", $this->notification($notification)->channel);
+        $channel = $this->notification($notification)->channel;
+        if ($channel === "*") {
+            $channel = config('notification-manager.channels', 'database,broadcast,mail');
+        }
+
+        return explode(",", $channel);
     }
 
     /**
