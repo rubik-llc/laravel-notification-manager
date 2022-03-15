@@ -12,7 +12,7 @@ class TestCase extends Orchestra
     {
         parent::setUp();
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Rubik\\NotificationManager\\Tests\\TestSupport\\Factories\\' . class_basename($modelName) . 'Factory'
+            fn(string $modelName) => 'Rubik\\NotificationManager\\Tests\\TestSupport\\Factories\\' . class_basename($modelName) . 'Factory'
         );
     }
 
@@ -37,6 +37,6 @@ class TestCase extends Orchestra
         config(['notification-manager.subscribable_notifications' => [
             'order.accepted' => \Rubik\NotificationManager\Tests\TestSupport\Notifications\OrderApprovedSubscribableNotification::class,
             'order.rejected' => \Rubik\NotificationManager\Tests\TestSupport\Notifications\OrderRejectedSubscribableNotification::class,
-        ]]);
+        ], 'channels' => 'database,broadcast']);
     }
 }
