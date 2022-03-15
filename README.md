@@ -50,7 +50,7 @@ php artisan vendor:publish --tag="laravel-notification-manager-views"
 ```
 
 
-##Features
+## Features
 - Manage subscribers
 - Manage notification priorities
 - Manage muted notifications (mute, unmute)
@@ -166,8 +166,8 @@ class TestNotification extends Notification implements SubscribableNotificationC
 ```
 All changes will affect only future notifications, and if not specified different changes will affect the desired notification of the authenticated user. Will be explained below.
 
-##Subscribers/Unsubscribe
-###Subscribe to a notification:
+## Subscribers/Unsubscribe
+### Subscribe to a notification:
 ```php
 CODE
 ```
@@ -176,7 +176,7 @@ or:
 CODE
 ```
 
-###Unsubscribe to a notification:
+### Unsubscribe to a notification:
 ```php
 CODE
 ```
@@ -185,7 +185,7 @@ or:
 CODE
 ```
 
-###Subscribe a user to a notification:
+### Subscribe a user to a notification:
 ```php
 CODE
 ```
@@ -194,7 +194,7 @@ or:
 CODE
 ```
 
-###Unsubscribe a user to a notification:
+### Unsubscribe a user to a notification:
 ```php
 CODE
 ```
@@ -203,13 +203,13 @@ or:
 CODE
 ```
 
-###Send notification to all subscribers:
+### Send notification to all subscribers:
 ```php
 CODE
 ```
 
-##Priority
-###Set priority to a notification:
+## Priority
+### Set priority to a notification:
 ```php
 CODE
 ```
@@ -218,7 +218,7 @@ or:
 CODE
 ```
 
-###Unset priority to a notification:
+### Unset priority to a notification:
 ```php
 CODE
 ```
@@ -227,7 +227,7 @@ or:
 CODE
 ```
 
-###Set priority to a notification as a user:
+### Set priority to a notification as a user:
 ```php
 CODE
 ```
@@ -236,7 +236,7 @@ or:
 CODE
 ```
 
-###Unset priority to a notification as a user:
+### Unset priority to a notification as a user:
 ```php
 CODE
 ```
@@ -245,8 +245,8 @@ or:
 CODE
 ```
 
-##Mute
-###Mute:
+## Mute
+### Mute:
 ```php
 CODE
 ```
@@ -255,7 +255,7 @@ or:
 CODE
 ```
 
-###Unmute:
+### Unmute:
 ```php
 CODE
 ```
@@ -264,8 +264,8 @@ or:
 CODE
 ```
 
-##Alert type
-###Set/update alert type:
+## Alert type
+### Set/update alert type:
 ```php
 CODE
 ```
@@ -274,7 +274,7 @@ or:
 CODE
 ```
 
-###Available alert types:
+### Available alert types:
 - NOTIFICATION_CENTER
     - value -> notification-center
 - BANNER
@@ -282,8 +282,8 @@ CODE
 - LOCK_SCREEN
     - value -> lock-screen
 
-##Preview type
-###Set/update preview type:
+## Preview type
+### Set/update preview type:
 ```php
 CODE
 ```
@@ -292,7 +292,7 @@ or:
 CODE
 ```
 
-###Available alert types:
+### Available alert types:
 - ALWAYS
     - value -> always
 - WHEN_UNLOCKED
@@ -300,8 +300,8 @@ CODE
 - NEVER
     - value -> never
 
-##Seen
-###Mark as seen
+## Seen
+### Mark as seen
 ```php
 CODE
 ```
@@ -310,7 +310,7 @@ or:
 CODE
 ```
 
-###Mark as unseen
+### Mark as unseen
 ```php
 CODE
 ```
@@ -319,41 +319,41 @@ or:
 CODE
 ```
 
-###Get all seen notifications:
+### Get all seen notifications:
 ```php
 CODE
 ```
-###Get all unseen notifications:
-```php
-CODE
-```
-
-###Check if a notification is seen:
+### Get all unseen notifications:
 ```php
 CODE
 ```
 
-###Check if a notification is unseen:
+### Check if a notification is seen:
 ```php
 CODE
 ```
 
-###Check if a notification is prioritised:
+### Check if a notification is unseen:
 ```php
 CODE
 ```
 
-###Check if a notification is trivialised:
+### Check if a notification is prioritised:
 ```php
 CODE
 ```
 
-###Check if a notification is muted:
+### Check if a notification is trivialised:
 ```php
 CODE
 ```
 
-###Check if a notification is unmuted:
+### Check if a notification is muted:
+```php
+CODE
+```
+
+### Check if a notification is unmuted:
 ```php
 CODE
 ``` 
