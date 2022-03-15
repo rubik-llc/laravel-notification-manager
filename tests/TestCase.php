@@ -12,7 +12,7 @@ class TestCase extends Orchestra
     {
         parent::setUp();
         Factory::guessFactoryNamesUsing(
-            fn(string $modelName) => 'Rubik\\NotificationManager\\Tests\\TestSupport\\Factories\\' . class_basename($modelName) . 'Factory'
+            fn (string $modelName) => 'Rubik\\NotificationManager\\Tests\\TestSupport\\Factories\\' . class_basename($modelName) . 'Factory'
         );
     }
 
