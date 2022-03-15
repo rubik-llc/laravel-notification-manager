@@ -44,7 +44,7 @@ class {{ class }} extends Notification implements SubscribableNotificationContra
      */
     public static function subscribableNotificationType(): string
     {
-        return 'order.approved';
+        return '';
     }
 
 

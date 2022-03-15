@@ -224,13 +224,4 @@ class NotificationManager
             'notification' => $subscribableNotificationClass::subscribableNotificationType(),
         ])->first();
     }
-
-    public function subscribable($subscribableNotificationClass): NotificationManagerModel
-    {
-        return NotificationManagerModel::where([
-            'notifiable_type' => get_class($this->notifiable),
-            'notifiable_id' => $this->notifiable->id,
-            'notification' => $subscribableNotificationClass::subscribableNotificationType(),
-        ])->first();
-    }
 }

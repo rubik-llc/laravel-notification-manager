@@ -23,7 +23,6 @@ class NotificationManager extends Model
         'preview_type',
         'is_prioritized',
         'is_muted',
-        'needs_authentication',
         'notifiable_id',
         'notifiable_type',
         'channel',

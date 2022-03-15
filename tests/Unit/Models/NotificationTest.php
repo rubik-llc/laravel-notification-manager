@@ -52,10 +52,6 @@ it('checks if a notification is muted', function () {
     assertTrue($notification->muted() === true);
 });
 
-it('checks if a notification needs authentication', function () {
-    $notification = DatabaseNotification::factory()->state(['needs_authentication' => true])->create();
-    assertTrue($notification->needsAuthentication() === true);
-});
 
 it('scope only seen notification', function () {
     $user = User::factory()->create();
@@ -63,7 +59,7 @@ it('scope only seen notification', function () {
         ->state(new Sequence(
             ['seen_at' => Carbon::now(), 'notifiable_id' => $user->id, 'notifiable_type' => get_class($user)],
             ['seen_at' => null, 'notifiable_id' => $user->id, 'notifiable_type' => get_class($user)],
-        ))->state(['needs_authentication' => true])->create();
+        ))->create();
     assertCount(5, $user->seenNotifications()->get());
 });
 

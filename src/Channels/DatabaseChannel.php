@@ -22,7 +22,6 @@ class DatabaseChannel extends BaseDatabaseChannel
             'is_muted' => null,
             'alert_type' => null,
             'preview_type' => null,
-            'needs_authentication' => null,
         ];
 
         if (method_exists($notification, 'details')) {
@@ -31,7 +30,6 @@ class DatabaseChannel extends BaseDatabaseChannel
                 'is_muted' => $notification->details($notifiable)->is_muted,
                 'alert_type' => $notification->details($notifiable)->alert_type->value,
                 'preview_type' => $notification->details($notifiable)->preview_type->value,
-                'needs_authentication' => $notification->details($notifiable)->needs_authentication,
             ];
         }
 

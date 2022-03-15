@@ -40,7 +40,6 @@ class DatabaseNotificationFactory extends Factory
             'seen_at' => null,
             'is_prioritized' => false,
             'is_muted' => false,
-            'needs_authentication' => true,
             'preview_type' => NotificationPreviewType::WHEN_UNLOCKED->value,
             'alert_type' => NotificationAlertType::NOTIFICATION_CENTER->value,
         ];

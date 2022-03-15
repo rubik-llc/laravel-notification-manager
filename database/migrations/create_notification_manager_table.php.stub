@@ -19,7 +19,6 @@ return new class extends Migration {
             $table->string('preview_type')->nullable();
             $table->boolean('is_prioritized')->nullable();
             $table->boolean('is_muted')->nullable();
-            $table->boolean('needs_authentication')->nullable();
             $table->timestamp('read_at')->nullable();
             $table->timestamp('seen_at')->nullable();
             $table->timestamps();
@@ -42,7 +41,6 @@ return new class extends Migration {
             $table->string('channel')->default('*');
             $table->timestamp('unsubscribed_at')->nullable();
             $table->boolean('is_prioritized')->default(0);
-            $table->boolean('needs_authentication')->default(1);
             $table->boolean('is_muted')->default(0);
             $table->string('alert_type')->default(NotificationAlertType::NOTIFICATION_CENTER->value);
             $table->string('preview_type')->default(NotificationPreviewType::WHEN_UNLOCKED->value);

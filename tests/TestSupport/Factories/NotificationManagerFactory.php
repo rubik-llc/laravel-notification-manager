@@ -30,7 +30,6 @@ class NotificationManagerFactory extends Factory
             'unsubscribed_at' => null,
             'is_prioritized' => false,
             'is_muted' => false,
-            'needs_authentication' => true,
         ];
     }
 }
