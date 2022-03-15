@@ -11,23 +11,16 @@ class OrderRejectedSubscribableNotification extends Notification implements Subs
 {
     use SubscribableNotification;
 
-    /**
-     * @var Model
-     */
     protected Model $payload;
 
     /**
      * Create a new notification instance.
-     * @param Model $payload
      */
     public function __construct(Model $payload)
     {
         $this->payload = $payload;
     }
 
-    /**
-     * @return string
-     */
     public static function subscribableNotificationType(): string
     {
         return 'order.rejected';

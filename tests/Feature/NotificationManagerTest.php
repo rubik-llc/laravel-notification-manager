@@ -3,9 +3,6 @@
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
-use function Pest\Laravel\actingAs;
-use function Pest\Laravel\assertDatabaseHas;
-use function PHPUnit\Framework\assertInstanceOf;
 use Rubik\NotificationManager\Enums\NotificationAlertType;
 use Rubik\NotificationManager\Enums\NotificationPreviewType;
 use Rubik\NotificationManager\Facades\NotificationManager;
@@ -14,14 +11,21 @@ use Rubik\NotificationManager\Tests\TestSupport\Models\Order;
 use Rubik\NotificationManager\Tests\TestSupport\Models\User;
 use Rubik\NotificationManager\Tests\TestSupport\Notifications\OrderApprovedSubscribableNotification;
 use Rubik\NotificationManager\Tests\TestSupport\Notifications\OrderRejectedSubscribableNotification;
+use function Pest\Laravel\actingAs;
+use function Pest\Laravel\assertDatabaseHas;
+use function PHPUnit\Framework\assertInstanceOf;
 use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(function () {
     $this->loggedInUser = User::factory()->create();
     actingAs($this->loggedInUser);
     $this->user = User::factory()->create();
-    $this->approvedOrder = Order::factory()->state(fn () => ['approved' => true])->create();
-    $this->rejectedOrder = Order::factory()->state(fn () => ['approved' => false])->create();
+    $this->approvedOrder = Order::factory()->state(fn () => [
+        'approved' => true,
+    ])->create();
+    $this->rejectedOrder = Order::factory()->state(fn () => [
+        'approved' => false,
+    ])->create();
     Notification::fake();
 });
 

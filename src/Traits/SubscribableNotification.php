@@ -17,7 +17,6 @@ trait SubscribableNotification
 
     /**
      * Send a notification to all subscribers
-     *
      */
     public static function sendToSubscribers()
     {
@@ -31,7 +30,6 @@ trait SubscribableNotification
      * Get the notification's delivery channels.
      *
      * @param $notifiable
-     * @return array
      */
     public function via($notifiable): array
     {
@@ -83,10 +81,6 @@ trait SubscribableNotification
         return NotificationManagerFacade::details(static::class, $notifiable);
     }
 
-    /**
-     *
-     * @return Collection
-     */
     public static function subscribers(): Collection
     {
         return NotificationManager::query()

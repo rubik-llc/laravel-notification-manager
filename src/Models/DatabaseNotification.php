@@ -30,32 +30,30 @@ class DatabaseNotification extends BaseDatabaseNotification
 
     /**
      * Mark the notification as seen.
-     *
-     * @return void
      */
     public function markAsSeen()
     {
         if (is_null($this->seen_at)) {
-            $this->forceFill(['seen_at' => $this->freshTimestamp()])->save();
+            $this->forceFill([
+                'seen_at' => $this->freshTimestamp(),
+            ])->save();
         }
     }
 
     /**
      * Mark the notification as unseen.
-     *
-     * @return void
      */
     public function markAsUnseen()
     {
         if (! is_null($this->seen_at)) {
-            $this->forceFill(['seen_at' => null])->save();
+            $this->forceFill([
+                'seen_at' => null,
+            ])->save();
         }
     }
 
     /**
      * Determine if a notification has been read.
-     *
-     * @return bool
      */
     public function seen(): bool
     {
@@ -64,8 +62,6 @@ class DatabaseNotification extends BaseDatabaseNotification
 
     /**
      * Determine if a notification has not been read.
-     *
-     * @return bool
      */
     public function unseen(): bool
     {
@@ -74,8 +70,6 @@ class DatabaseNotification extends BaseDatabaseNotification
 
     /**
      * Determine if a notification is muted.
-     *
-     * @return bool
      */
     public function muted(): bool
     {
@@ -84,8 +78,6 @@ class DatabaseNotification extends BaseDatabaseNotification
 
     /**
      * Determine if a notification is prioritized.
-     *
-     * @return bool
      */
     public function prioritized(): bool
     {
@@ -94,7 +86,6 @@ class DatabaseNotification extends BaseDatabaseNotification
 
     /**
      * Determine if a notification is trivialized.
-     * @return bool
      */
     public function trivialized(): bool
     {
@@ -103,9 +94,6 @@ class DatabaseNotification extends BaseDatabaseNotification
 
     /**
      * Scope a query to only include seen notifications.
-     *
-     * @param Builder $query
-     * @return Builder
      */
     public function scopeSeen(Builder $query): Builder
     {
@@ -114,9 +102,6 @@ class DatabaseNotification extends BaseDatabaseNotification
 
     /**
      * Scope a query to only include unseen notifications.
-     *
-     * @param Builder $query
-     * @return Builder
      */
     public function scopeUnseen(Builder $query): Builder
     {
@@ -125,9 +110,6 @@ class DatabaseNotification extends BaseDatabaseNotification
 
     /**
      * Scope a query to only include prioritized notifications.
-     *
-     * @param Builder $query
-     * @return Builder
      */
     public function scopePrioritized(Builder $query): Builder
     {
@@ -136,9 +118,6 @@ class DatabaseNotification extends BaseDatabaseNotification
 
     /**
      * Scope a query to only include unseen notifications.
-     *
-     * @param Builder $query
-     * @return Builder
      */
     public function scopeTrivialized(Builder $query): Builder
     {
@@ -147,9 +126,6 @@ class DatabaseNotification extends BaseDatabaseNotification
 
     /**
      * Scope a query to only include muted notifications.
-     *
-     * @param Builder $query
-     * @return Builder
      */
     public function scopeMuted(Builder $query): Builder
     {
@@ -158,9 +134,6 @@ class DatabaseNotification extends BaseDatabaseNotification
 
     /**
      * Scope a query to only include not muted notifications.
-     *
-     * @param Builder $query
-     * @return Builder
      */
     public function scopeUnmuted(Builder $query): Builder
     {
@@ -169,9 +142,6 @@ class DatabaseNotification extends BaseDatabaseNotification
 
     /**
      * Scope a query to only include notifications with alert type set to notification-center.
-     *
-     * @param Builder $query
-     * @return Builder
      */
     public function scopeAlertNotificationCenter(Builder $query): Builder
     {
@@ -180,9 +150,6 @@ class DatabaseNotification extends BaseDatabaseNotification
 
     /**
      * Scope a query to only include notifications with alert type set to banner.
-     *
-     * @param Builder $query
-     * @return Builder
      */
     public function scopeAlertBanner(Builder $query): Builder
     {
@@ -191,9 +158,6 @@ class DatabaseNotification extends BaseDatabaseNotification
 
     /**
      * Scope a query to only include notifications with alert type set to lock screen.
-     *
-     * @param Builder $query
-     * @return Builder
      */
     public function scopeAlertLockScreen(Builder $query): Builder
     {
@@ -202,9 +166,6 @@ class DatabaseNotification extends BaseDatabaseNotification
 
     /**
      * Scope a query to only include notifications with preview type set to always.
-     *
-     * @param Builder $query
-     * @return Builder
      */
     public function scopePreviewAlways(Builder $query): Builder
     {
@@ -213,9 +174,6 @@ class DatabaseNotification extends BaseDatabaseNotification
 
     /**
      * Scope a query to only include notifications with preview type set to when unlocked.
-     *
-     * @param Builder $query
-     * @return Builder
      */
     public function scopePreviewWhenUnlocked(Builder $query): Builder
     {
@@ -224,9 +182,6 @@ class DatabaseNotification extends BaseDatabaseNotification
 
     /**
      * Scope a query to only include notifications with preview type set to never.
-     *
-     * @param Builder $query
-     * @return Builder
      */
     public function scopePreviewNever(Builder $query): Builder
     {
@@ -235,9 +190,6 @@ class DatabaseNotification extends BaseDatabaseNotification
 
     /**
      * Create a new database notification collection instance.
-     *
-     * @param array $models
-     * @return DatabaseNotificationCollection
      */
     public function newCollection(array $models = []): DatabaseNotificationCollection
     {

@@ -13,7 +13,6 @@ class NotificationManager extends Model
     use HasFactory;
 
     /**
-     *
      * @var array
      */
     protected $fillable = [
@@ -42,8 +41,6 @@ class NotificationManager extends Model
 
     /**
      * Defines polymorphic relation between Notification Subscription and any other Model
-     *
-     * @return MorphTo
      */
     public function notifiable(): MorphTo
     {
@@ -51,12 +48,9 @@ class NotificationManager extends Model
     }
 
     /**
-     *
      * Scope only subscriptions for a specific notification
      *
      * @param $query
-     * @param string $notification
-     * @return void
      */
     public function scopeForNotification($query, string $notification): void
     {
@@ -64,11 +58,9 @@ class NotificationManager extends Model
     }
 
     /**
-     *
      * Scope only subscriptions for with null unsubscribed
      *
      * @param $query
-     * @return void
      */
     public function scopeSubscribed($query): void
     {

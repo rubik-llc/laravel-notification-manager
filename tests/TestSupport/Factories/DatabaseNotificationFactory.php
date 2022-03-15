@@ -15,18 +15,13 @@ class DatabaseNotificationFactory extends Factory
 {
     protected $model = DatabaseNotification::class;
 
-
     /**
      * Default type value
-     *
-     * @var string
      */
     private string $type = "Rubik\\NotificationManager\\Tests\\TestSupport\\Notifications\\OrderApprovedNotification.php";
 
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
     public function definition(): array
     {

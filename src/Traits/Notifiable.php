@@ -13,8 +13,6 @@ trait Notifiable
 
     /**
      * Get the entity's notifications.
-     *
-     * @return MorphMany
      */
     public function notifications(): MorphMany
     {

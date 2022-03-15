@@ -34,9 +34,12 @@ class TestCase extends Orchestra
         $user->up();
         $order->up();
 
-        config(['notification-manager.subscribable_notifications' => [
-            'order.accepted' => \Rubik\NotificationManager\Tests\TestSupport\Notifications\OrderApprovedSubscribableNotification::class,
-            'order.rejected' => \Rubik\NotificationManager\Tests\TestSupport\Notifications\OrderRejectedSubscribableNotification::class,
-        ], 'channels' => 'database,broadcast']);
+        config([
+            'notification-manager.subscribable_notifications' => [
+                'order.accepted' => \Rubik\NotificationManager\Tests\TestSupport\Notifications\OrderApprovedSubscribableNotification::class,
+                'order.rejected' => \Rubik\NotificationManager\Tests\TestSupport\Notifications\OrderRejectedSubscribableNotification::class,
+            ],
+            'channels' => 'database,broadcast',
+        ]);
     }
 }

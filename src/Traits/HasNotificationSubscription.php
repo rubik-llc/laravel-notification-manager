@@ -9,18 +9,12 @@ trait HasNotificationSubscription
 {
     /**
      * Defines polymorphic relation between any Model and Notification Subscription
-     *
-     * @return MorphMany
      */
     public function subscriptions(): MorphMany
     {
         return $this->morphMany(NotificationManager::class, 'notifiable');
     }
 
-    /**
-     * @param string $notification
-     * @return array
-     */
     public function channels(string $notification): array
     {
         $channel = $this->notification($notification)->channel;
@@ -31,10 +25,6 @@ trait HasNotificationSubscription
         return explode(",", $channel);
     }
 
-    /**
-     * @param string $notification
-     * @return NotificationManager
-     */
     public function notification(string $notification): NotificationManager
     {
         return $this->subscriptions()->forNotification($notification)->first();

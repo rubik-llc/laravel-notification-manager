@@ -11,9 +11,6 @@ class DatabaseChannel extends BaseDatabaseChannel
      * Send the given notification.
      *
      * @param mixed $notifiable
-     * @param Notification $notification
-     *
-     * @return array
      */
     public function buildPayload($notifiable, Notification $notification): array
     {
