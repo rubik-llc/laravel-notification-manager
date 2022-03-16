@@ -2,9 +2,9 @@
 
 
 use Carbon\Carbon;
-use Rubik\NotificationManager\Models\DatabaseNotification;
 use function Pest\Laravel\assertDatabaseCount;
 use function PHPUnit\Framework\assertCount;
+use Rubik\NotificationManager\Models\DatabaseNotification;
 
 it('marks all as seen', function () {
     $databaseNotification = DatabaseNotification::factory()->count(5)

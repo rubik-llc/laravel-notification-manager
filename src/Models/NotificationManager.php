@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Rubik\NotificationManager\Enums\NotificationAlertType;
 use Rubik\NotificationManager\Enums\NotificationPreviewType;
 
-
 class NotificationManager extends Model
 {
     use HasFactory;

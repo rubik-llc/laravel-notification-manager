@@ -132,7 +132,7 @@ trait SubscribableNotification
             ->subscribed()
             ->forNotification(self::subscribableNotificationType())
             ->get()
-            ->map(fn(NotificationManager $notificationSubscription) => $notificationSubscription->notifiable)
+            ->map(fn (NotificationManager $notificationSubscription) => $notificationSubscription->notifiable)
             ->unique();
     }
 }
