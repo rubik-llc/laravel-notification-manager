@@ -2,11 +2,13 @@
 
 namespace Rubik\NotificationManager\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Rubik\NotificationManager\Enums\NotificationAlertType;
 use Rubik\NotificationManager\Enums\NotificationPreviewType;
+
 
 class NotificationManager extends Model
 {
@@ -48,22 +50,25 @@ class NotificationManager extends Model
     }
 
     /**
-     * Scope only subscriptions for a specific notification
+     * Scope a query to only include subscribers of a notification.
      *
-     * @param $query
+     * @param Builder $query
+     * @param string $notification
+     * @return Builder
      */
-    public function scopeForNotification($query, string $notification): void
+    public function scopeForNotification(Builder $query, string $notification): Builder
     {
-        $query->where('notification', $notification);
+        return $query->where('notification', $notification);
     }
 
     /**
-     * Scope only subscriptions for with null unsubscribed
+     * Scope a query to only include subscriptions.
      *
-     * @param $query
+     * @param Builder $query
+     * @return Builder
      */
-    public function scopeSubscribed($query): void
+    public function scopeSubscribed(Builder $query): Builder
     {
-        $query->whereNull('unsubscribed_at');
+        return $query->whereNull('unsubscribed_at');
     }
 }

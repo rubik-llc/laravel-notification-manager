@@ -10,6 +10,7 @@ use Rubik\NotificationManager\Enums\NotificationAlertType;
 use Rubik\NotificationManager\Enums\NotificationPreviewType;
 use Rubik\NotificationManager\Facades\NotificationManager as NotificationManagerFacade;
 use Rubik\NotificationManager\Models\NotificationManager;
+use Rubik\NotificationManager\Models\NotificationManager as NotificationManagerModel;
 
 trait SubscribableNotification
 {
@@ -30,63 +31,108 @@ trait SubscribableNotification
      * Get the notification's delivery channels.
      *
      * @param $notifiable
+     * @return array
      */
     public function via($notifiable): array
     {
         return $notifiable->channels(self::subscribableNotificationType());
     }
 
-    public static function subscribe($channel = '*')
+    /**
+     * Subscribe a user to a notification
+     *
+     * @param string $channel
+     */
+    public static function subscribe(string $channel = '*'): void
     {
         NotificationManagerFacade::subscribe(static::class, $channel);
     }
 
-    public static function unsubscribe($channel = '*')
+    /**
+     * Unsubscribe a user to a notification
+     *
+     * @param string $channel
+     */
+    public static function unsubscribe(string $channel = '*'): void
     {
         NotificationManagerFacade::unsubscribe(static::class, $channel);
     }
 
-    public static function prioritize()
+    /**
+     * Prioritize a notification for a user
+     */
+    public static function prioritize(): void
     {
         NotificationManagerFacade::prioritize(static::class);
     }
 
-    public static function trivialize()
+    /**
+     * Trivialize a notification for a user
+     */
+    public static function trivialize(): void
     {
         NotificationManagerFacade::subscribe(static::class);
     }
 
-    public static function mute()
+    /**
+     * Mute a notification for a user
+     */
+    public static function mute(): void
     {
         NotificationManagerFacade::mute(static::class);
     }
 
-    public static function unmute()
+    /**
+     * Mute a notification for a user
+     */
+    public static function unmute(): void
     {
         NotificationManagerFacade::unmute(static::class);
     }
 
-    public static function previewType(NotificationPreviewType $notificationPreviewType)
+    /**
+     * Update preview type for a user
+     *
+     * @param NotificationPreviewType $notificationPreviewType
+     */
+    public static function previewType(NotificationPreviewType $notificationPreviewType): void
     {
         NotificationManagerFacade::previewType(static::class, $notificationPreviewType);
     }
 
-    public static function alertType(NotificationAlertType $notificationAlertType)
+    /**
+     * Update alert type for a user
+     *
+     * @param NotificationAlertType $notificationAlertType
+     */
+    public static function alertType(NotificationAlertType $notificationAlertType): void
     {
         NotificationManagerFacade::alertType(static::class, $notificationAlertType);
     }
 
+    /**
+     * Retrieve notification details
+     *
+     * @param Authenticatable|Model $notifiable
+     * @return NotificationManagerModel
+     */
     public static function details(Authenticatable|Model $notifiable): NotificationManager
     {
         return NotificationManagerFacade::details(static::class, $notifiable);
     }
 
+    /**
+     * Return all subscribers
+     *
+     * @return Collection
+     */
     public static function subscribers(): Collection
     {
         return NotificationManager::query()
             ->subscribed()
             ->forNotification(self::subscribableNotificationType())
             ->get()
-            ->map(fn (NotificationManager $notificationSubscription) => $notificationSubscription->notifiable)->unique();
+            ->map(fn(NotificationManager $notificationSubscription) => $notificationSubscription->notifiable)
+            ->unique();
     }
 }

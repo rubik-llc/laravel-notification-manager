@@ -145,7 +145,7 @@ class DatabaseNotification extends BaseDatabaseNotification
      */
     public function scopeAlertNotificationCenter(Builder $query): Builder
     {
-        return $query->where('is_muted', true);
+        return $query->where('alert_type', NotificationAlertType::NOTIFICATION_CENTER->value);
     }
 
     /**
@@ -153,7 +153,7 @@ class DatabaseNotification extends BaseDatabaseNotification
      */
     public function scopeAlertBanner(Builder $query): Builder
     {
-        return $query->where('is_muted', false);
+        return $query->where('alert_type', NotificationAlertType::BANNER->value);
     }
 
     /**
@@ -161,7 +161,7 @@ class DatabaseNotification extends BaseDatabaseNotification
      */
     public function scopeAlertLockScreen(Builder $query): Builder
     {
-        return $query->where('is_muted', false);
+        return $query->where('alert_type', NotificationAlertType::LOCK_SCREEN->value);
     }
 
     /**
@@ -169,7 +169,7 @@ class DatabaseNotification extends BaseDatabaseNotification
      */
     public function scopePreviewAlways(Builder $query): Builder
     {
-        return $query->where('is_muted', true);
+        return $query->where('preview_type', NotificationPreviewType::ALWAYS->value);
     }
 
     /**
@@ -177,7 +177,7 @@ class DatabaseNotification extends BaseDatabaseNotification
      */
     public function scopePreviewWhenUnlocked(Builder $query): Builder
     {
-        return $query->where('is_muted', false);
+        return $query->where('preview_type', NotificationPreviewType::WHEN_UNLOCKED->value);
     }
 
     /**
@@ -185,7 +185,7 @@ class DatabaseNotification extends BaseDatabaseNotification
      */
     public function scopePreviewNever(Builder $query): Builder
     {
-        return $query->where('is_muted', false);
+        return $query->where('preview_type', NotificationPreviewType::NEVER->value);
     }
 
     /**

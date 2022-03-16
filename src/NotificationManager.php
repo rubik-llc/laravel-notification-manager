@@ -33,8 +33,9 @@ class NotificationManager
      * Subscribe a user to a notification
      *
      * @param $subscribableNotificationClass
+     * @param string $channel
      */
-    public function subscribe($subscribableNotificationClass, string $channel = '*')
+    public function subscribe($subscribableNotificationClass, string $channel = '*'): void
     {
         NotificationManagerModel::updateOrCreate([
             'notification' => $subscribableNotificationClass::subscribableNotificationType(),
@@ -50,8 +51,9 @@ class NotificationManager
      * Unsubscribe a user to a notification
      *
      * @param $subscribableNotificationClass
+     * @param string $channel
      */
-    public function unsubscribe($subscribableNotificationClass, string $channel = '*')
+    public function unsubscribe($subscribableNotificationClass, string $channel = '*'): void
     {
         NotificationManagerModel::updateOrCreate([
             'notification' => $subscribableNotificationClass::subscribableNotificationType(),
@@ -68,7 +70,7 @@ class NotificationManager
      *
      * @param $subscribableNotificationClass
      */
-    public function prioritize($subscribableNotificationClass)
+    public function prioritize($subscribableNotificationClass): void
     {
         $this->subscribe($subscribableNotificationClass);
 
@@ -87,7 +89,7 @@ class NotificationManager
      *
      * @param $subscribableNotificationClass
      */
-    public function trivialize($subscribableNotificationClass)
+    public function trivialize($subscribableNotificationClass): void
     {
         $this->subscribe($subscribableNotificationClass);
 
@@ -106,7 +108,7 @@ class NotificationManager
      *
      * @param $subscribableNotificationClass
      */
-    public function mute($subscribableNotificationClass)
+    public function mute($subscribableNotificationClass): void
     {
         $this->subscribe($subscribableNotificationClass);
 
@@ -125,7 +127,7 @@ class NotificationManager
      *
      * @param $subscribableNotificationClass
      */
-    public function unmute($subscribableNotificationClass)
+    public function unmute($subscribableNotificationClass): void
     {
         $this->subscribe($subscribableNotificationClass);
 
@@ -141,8 +143,10 @@ class NotificationManager
 
     /**
      * Subscribe to all notifications for a user
+     *
+     * @param string $channel
      */
-    public function subscribeAll(string $channel = '*')
+    public function subscribeAll(string $channel = '*'): void
     {
         NotificationManagerModel::query()
             ->where([
@@ -157,8 +161,10 @@ class NotificationManager
 
     /**
      * Unsubscribe form all notifications for a user
+     *
+     * @param string $channel
      */
-    public function unsubscribeAll(string $channel = '*')
+    public function unsubscribeAll(string $channel = '*'): void
     {
         NotificationManagerModel::query()
             ->where([
@@ -175,8 +181,9 @@ class NotificationManager
      * Update alert type for a user
      *
      * @param $subscribableNotificationClass
+     * @param NotificationAlertType $notificationAlertType
      */
-    public function alertType($subscribableNotificationClass, NotificationAlertType $notificationAlertType)
+    public function alertType($subscribableNotificationClass, NotificationAlertType $notificationAlertType): void
     {
         $this->subscribe($subscribableNotificationClass);
 
@@ -194,8 +201,9 @@ class NotificationManager
      * Update preview type for a user
      *
      * @param $subscribableNotificationClass
+     * @param NotificationPreviewType $notificationPreviewType
      */
-    public function previewType($subscribableNotificationClass, NotificationPreviewType $notificationPreviewType)
+    public function previewType($subscribableNotificationClass, NotificationPreviewType $notificationPreviewType): void
     {
         $this->subscribe($subscribableNotificationClass);
 
@@ -213,6 +221,8 @@ class NotificationManager
      * Retrieve notification details
      *
      * @param $subscribableNotificationClass
+     * @param Model $notifiable
+     * @return NotificationManagerModel
      */
     public function details($subscribableNotificationClass, Model $notifiable): NotificationManagerModel
     {
