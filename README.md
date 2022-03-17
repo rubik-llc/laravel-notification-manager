@@ -5,7 +5,7 @@
 [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/rubik-llc/laravel-notification-manager/run-tests?label=tests)](https://github.com/rubik-llc/laravel-notification-manager/actions/workflows/run-tests.yml)
 [![Check & fix styling](https://img.shields.io/github/workflow/status/rubik-llc/laravel-notification-manager/Check%20&%20fix%20styling?label=check%20and%20fix%20styling)](https://github.com/rubik-llc/laravel-notification-manager/actions/workflows/php-cs-fixer.yml)
 [![GitHub](https://img.shields.io/github/license/rubik-llc/laravel-notification-manager)](LICENSE.md)
-![GitHub all releases](https://img.shields.io/github/downloads/rubik-llc/laravel-notification-manager/total)
+![GitHub all releases](https://img.shields.io/packagist/dt/rubik-llc/laravel-notification-manager)
 
 Manage notifications easily in your Laravel app.
 
