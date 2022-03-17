@@ -8,6 +8,7 @@
 Manage notifications easily in your Laravel app.
 
 ## Features
+
 - Manage subscribers
 - Manage notification priorities
 - Manage muted notifications (mute, unmute)
@@ -89,15 +90,19 @@ All above can be done using NotificationManager facade or Notification class its
 ## Usage
 
 1. Use our “Notifiable” trait in all models you wish to send notifications(most cases Users)
-    - This can be done by changing the import from “use Illuminate\Notifications\Notifiable;” to “use Rubik\NotificationManager\Traits\Notifiable;”, and also if not yet use the trait “use Notifiable”;. Your model should look like
+    - This can be done by changing the import from “use Illuminate\Notifications\Notifiable;” to “use
+      Rubik\NotificationManager\Traits\Notifiable;”, and also if not yet use the trait “use Notifiable”;. Your model
+      should look like
 2. Use HasNotificationSubscription trait in all models you wish to send notifications
 3. Create subscribale notification by using “-s” flag in the default artisan command to create a notification.
+4. Add this notification to config file
+
 ```bash 
-php artisan make:notificartion SubscribaleNotification -s
+php artisan make:notification SubscribaleNotification -s
 ```
 
-From now on everything is the same as a normal notification.
-Below you can see how your Model and Notification should look like:
+From now on everything is the same as a normal notification. Below you can see how your Model and Notification should
+look like:
 
 ```php
 namespace App\Notifications;
@@ -162,7 +167,11 @@ class TestNotification extends Notification implements SubscribableNotificationC
     }
 }
 ```
-If you want to convert a notification to a subscribable notification all you have to do is add SubscribaleNotification Contract and implement all methods required, and use SubscribaleNotification trait. Your notification should look like:
+
+If you want to convert a notification to a subscribable notification all you have to do is add SubscribaleNotification
+Contract and implement all methods required, and use SubscribaleNotification trait. Do not forget to add this notifion
+to your config. Your notification should look like:
+
 ```php
 namespace App\Notifications;
 
@@ -190,198 +199,377 @@ class TestNotification extends Notification implements SubscribableNotificationC
     }
 }
 ```
-All changes will affect only future notifications, and if not specified different changes will affect the desired notification of the authenticated user. Will be explained below.
+
+All changes will affect only future notifications, and if not specified different changes will affect the desired
+notification of the authenticated user. Will be explained below.
 
 ## Subscribers/Unsubscribe
+
 ### Subscribe to a notification:
+
 ```php
-CODE
+NotificationManager::subscribe(OrderApprovedSubscribableNotification::class);
 ```
+
 or:
+
 ```php
-CODE
+OrderApprovedSubscribableNotification::subscribe();
 ```
 
 ### Unsubscribe to a notification:
+
 ```php
-CODE
+NotificationManager::unsubscribe(OrderApprovedSubscribableNotification::class);
 ```
+
 or:
+
 ```php
-CODE
+OrderApprovedSubscribableNotification::unsubscribe();
 ```
 
 ### Subscribe a user to a notification:
+
 ```php
-CODE
-```
-or:
-```php
-CODE
+NotificationManager::for(User::find(1))->subscribe(OrderApprovedSubscribableNotification::class);
 ```
 
 ### Unsubscribe a user to a notification:
+
 ```php
-CODE
+NotificationManager::for(User::find(1))->unsubscribe(OrderApprovedSubscribableNotification::class);
 ```
-or:
+
+### Subscribe to all notifications:
+
 ```php
-CODE
+NotificationManager::subscribeAll();
+```
+
+### Unsubscribe to all notifications:
+
+```php
+NotificationManager::unsubscribeAll();
+```
+
+### Subscribe a user to all notifications:
+
+```php
+NotificationManager::for(User::find(1))->subscribeAll();
+```
+
+### Unsubscribe a user to all notifications:
+
+```php
+NotificationManager::for(User::find(1))->unsubscribeAll();
 ```
 
 ### Send notification to all subscribers:
+
+Instead of using:
+
 ```php
-CODE
+Notification::send(User::subscribers()->get(),new OrderApprovedSubscribableNotification($payload));
 ```
 
-## Priority
-### Set priority to a notification:
+Use:
+
 ```php
-CODE
+OrderApprovedSubscribableNotification::sendToSubscribers($payload)
 ```
-or:
+
+Everything passed to send to subscriber will be passed to notification constructor.
+
+## Priority
+
+### Set priority to a notification:
+
 ```php
-CODE
+NotificationManager::prioritize(OrderApprovedSubscribableNotification::class);
+```
+
+or:
+
+```php
+OrderApprovedSubscribableNotification::prioritize();
 ```
 
 ### Unset priority to a notification:
+
 ```php
-CODE
+NotificationManager::trivialize(OrderApprovedSubscribableNotification::class);
 ```
+
 or:
+
 ```php
-CODE
+OrderApprovedSubscribableNotification::trivialize();
 ```
 
 ### Set priority to a notification as a user:
+
 ```php
-CODE
-```
-or:
-```php
-CODE
+NotificationManager::for(User::find(1))->prioritize(OrderApprovedSubscribableNotification::class);
 ```
 
 ### Unset priority to a notification as a user:
+
 ```php
-CODE
-```
-or:
-```php
-CODE
+NotificationManager::for(User::find(1))->trivialize(OrderApprovedSubscribableNotification::class);
 ```
 
 ## Mute
-### Mute:
+
+### Mute a notification:
+
 ```php
-CODE
-```
-or:
-```php
-CODE
+NotificationManager::mute(OrderApprovedSubscribableNotification::class);
 ```
 
-### Unmute:
-```php
-CODE
-```
 or:
+
 ```php
-CODE
+OrderApprovedSubscribableNotification::mute();
+```
+
+### Unmute a notification:
+
+```php
+NotificationManager::unmute(OrderApprovedSubscribableNotification::class);
+```
+
+or:
+
+```php
+OrderApprovedSubscribableNotification::unmute();
+```
+
+### Mute a notification for a user:
+
+```php
+NotificationManager::for(User::find(1))->mute(OrderApprovedSubscribableNotification::class);
+```
+
+### Unmute a notification for a user:
+
+```php
+NotificationManager::for(User::find(1))->unmute(OrderApprovedSubscribableNotification::class);
 ```
 
 ## Alert type
+
 ### Set/update alert type:
+
 ```php
-CODE
+NotificationManager::alertType(OrderApprovedSubscribableNotification::class, NotificationAlertType::BANNER);
 ```
+
 or:
+
 ```php
-CODE
+OrderApprovedSubscribableNotification::alertType(NotificationAlertType::BANNER);
 ```
 
 ### Available alert types:
-- NOTIFICATION_CENTER
-    - value -> notification-center
-- BANNER
-    - value -> banner
-- LOCK_SCREEN
-    - value -> lock-screen
+
+```php
+NotificationAlertType::NOTIFICATION_CENTER;
+NotificationAlertType::BANNER;
+NotificationAlertType::LOCK_SCREEN;
+```
+
+those are only values and in no way they represent a logic. You can use those values to classify notifications.
 
 ## Preview type
+
 ### Set/update preview type:
+
 ```php
-CODE
+NotificationManager::previewType(OrderApprovedSubscribableNotification::class, NotificationPreviewType::ALWAYS);
 ```
+
 or:
+
 ```php
-CODE
+OrderApprovedSubscribableNotification::previewType(NotificationPreviewType::ALWAYS);
+
 ```
 
 ### Available alert types:
-- ALWAYS
-    - value -> always
-- WHEN_UNLOCKED
-    - value -> when-unlocked
-- NEVER
-    - value -> never
+
+```php
+NotificationPreviewType::ALWAYS;
+NotificationPreviewType::WHEN_UNLOCKED;
+NotificationPreviewType::NEVER;
+```
 
 ## Seen
+
 ### Mark as seen
+
 ```php
-CODE
+User::find(1)->notifications()->markAsSeen();
 ```
+
 or:
+
 ```php
-CODE
+DatabaseNotification::all()->markAsSeen();
+```
+
+or:
+
+```php
+$user=User::find(1);
+
+$user->unseenNotifications()->update(['seen_at' => now()]);
+```
+
+or:
+
+```php
+$user = App\Models\User::find(1);
+ 
+foreach ($user->unseenNotifications as $notification) {
+    $notification->markAsSeen();
+}
 ```
 
 ### Mark as unseen
+
 ```php
-CODE
+User::find(1)->notifications()->markAsUnseen();
 ```
+
 or:
+
 ```php
-CODE
+DatabaseNotification::all()->markAsUnseen();
+```
+
+or:
+
+```php
+$user->seenNotifications()->update(['seen_at' => null]);
+```
+
+or:
+
+```php
+$user = App\Models\User::find(1);
+ 
+foreach ($user->seenNotifications as $notification) {
+    $notification->markAsUnseen();
+}
 ```
 
 ### Get all seen notifications:
+
 ```php
-CODE
+User::find(1)->seenNotifications();
 ```
+
 ### Get all unseen notifications:
+
 ```php
-CODE
+User::find(1)->unseenNotifications();
+```
+
+### Get all prioritized notifications:
+
+```php
+User::find(1)->prioritizedNotifications();
+```
+
+### Get all trivialized notifications:
+
+```php
+User::find(1)->trivializedNotifications();
+```
+
+### Get all muted notifications:
+
+```php
+User::find(1)->mutedNotifications();
+```
+
+### Get all unmuted notifications:
+
+```php
+User::find(1)->unmutedNotifications();
+```
+
+### Get all notifications with alert type set to 'notification-center':
+
+```php
+User::find(1)->alertNotificationCenterNotifications();
+```
+
+### Get all notifications with alert type set to 'banner':
+
+```php
+User::find(1)->alertBannerNotifications();
+```
+
+### Get all notifications with alert type set to 'lock-screen':
+
+```php
+User::find(1)->alertLockScreenNotifications();
+```
+
+### Get all notifications with preview type set to 'always':
+
+```php
+User::find(1)->previewAlwaysNotifications();
+```
+
+### Get all notifications with preview type set to 'when-unlocked':
+
+```php
+User::find(1)->previewWhenUnlockedNotifications();
+```
+
+### Get all notifications with preview type set to 'never':
+
+```php
+User::find(1)->previewNeverNotifications();
 ```
 
 ### Check if a notification is seen:
+
 ```php
-CODE
+User::find(1)->notifications()->first()->seen();
 ```
 
 ### Check if a notification is unseen:
+
 ```php
-CODE
+User::find(1)->notifications()->first()->unseen();
 ```
 
 ### Check if a notification is prioritised:
+
 ```php
-CODE
+User::find(1)->notifications()->first()->seen();
 ```
 
 ### Check if a notification is trivialised:
+
 ```php
-CODE
+User::find(1)->notifications()->first()->triavilized();
 ```
 
 ### Check if a notification is muted:
+
 ```php
-CODE
+User::find(1)->notifications()->first()->muted();
 ```
 
 ### Check if a notification is unmuted:
+
 ```php
-CODE
+User::find(1)->notifications()->first()->unmuted();
 ``` 
 
 ## Testing
