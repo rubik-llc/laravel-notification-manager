@@ -27,14 +27,14 @@ composer require rubik-llc/laravel-notification-manager
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-notification-manager-migrations"
+php artisan vendor:publish --tag="notification-manager-migrations"
 php artisan migrate
 ```
 
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-notification-manager-config"
+php artisan vendor:publish --tag="notification-manager-config"
 ```
 
 This is the contents of the published config file:
@@ -78,14 +78,6 @@ return [
 
 ];
 ```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-notification-manager-views"
-```
-
-All above can be done using NotificationManager facade or Notification class itself.
 
 ## Usage
 
