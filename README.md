@@ -7,8 +7,7 @@
 [![GitHub](https://img.shields.io/github/license/rubik-llc/laravel-notification-manager)](LICENSE.md)
 [![GitHub all releases](https://img.shields.io/packagist/dt/rubik-llc/laravel-notification-manager)](https://packagist.org/packages/rubik-llc/laravel-notification-manager/stats)
 
-Manage notifications easily in your Laravel app. This package adds some attributes to database notifications like seen_at, is_prioritised, is_muted, preview_type and alert_type. These attributes can be used to classify notifications for a better user experience. Except this also using this package you can manage subscribers for a notification based on user preference including subscribing in specific channels(databse, broadcast etc). Hope you find it useful.
-
+In addition to Laravel’s default notifications, this package adds further attributes like `seen_at`, `is_prioritised`, `is_muted`, `preview_type` and `alert_type`. These attributes can be used to classify notifications for a better user experience. Furthermore, using this package you can manage subscriptions to certain notifications based on user preference, meaning that a user can specify whether or not to receive a certain notification type, channel or even a specific notification.
 
 
 ## Features
