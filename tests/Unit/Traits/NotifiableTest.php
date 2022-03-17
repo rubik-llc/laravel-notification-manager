@@ -4,13 +4,13 @@
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Support\Facades\Auth;
+use function Pest\Laravel\actingAs;
+use function Pest\Laravel\assertDatabaseCount;
+use function PHPUnit\Framework\assertCount;
 use Rubik\NotificationManager\Enums\NotificationAlertType;
 use Rubik\NotificationManager\Enums\NotificationPreviewType;
 use Rubik\NotificationManager\Models\DatabaseNotification;
 use Rubik\NotificationManager\Tests\TestSupport\Models\User;
-use function Pest\Laravel\actingAs;
-use function Pest\Laravel\assertDatabaseCount;
-use function PHPUnit\Framework\assertCount;
 
 beforeEach(function () {
     $this->user = User::factory()->create();

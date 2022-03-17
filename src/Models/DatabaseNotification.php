@@ -45,7 +45,7 @@ class DatabaseNotification extends BaseDatabaseNotification
      */
     public function markAsUnseen(): void
     {
-        if (!is_null($this->seen_at)) {
+        if (! is_null($this->seen_at)) {
             $this->forceFill([
                 'seen_at' => null,
             ])->save();
@@ -94,7 +94,7 @@ class DatabaseNotification extends BaseDatabaseNotification
      */
     public function trivialized(): bool
     {
-        return !$this->is_prioritized;
+        return ! $this->is_prioritized;
     }
 
     /**
